@@ -1,0 +1,24 @@
+{
+  "name": "service-desk-management",
+  "version": "1.0.0",
+  "description": "A service desk management app written in MEVN stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apfirebolt/service-desk-management-application-in-express-and-vue.git"
+  },
+  "keywords": [
+    "Service",
+    "Desk",
+    "MEVN"
+  ],
+  "author": "Apfirebolt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Apfirebolt/service-desk-management-application-in-express-and-vue/issues"
+  },
+  "homepage": "https://github.com/Apfirebolt/service-desk-management-application-in-express-and-vue#readme"
+}
