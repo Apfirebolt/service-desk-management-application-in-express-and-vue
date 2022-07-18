@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { store } from '../store/store';
+import DashboardLayout from '../layouts/dashboard';
 import EmptyLayout from '../layouts/empty.vue';
 import * as authTypes from '../store/modules/auth/auth-types';
 
@@ -28,6 +29,20 @@ const routes = [
         path: 'register',
         name: 'Register',
         component: () => import('../screens/auth/register.vue'),
+      },
+    ],
+  },
+  {
+    path: '/dashboard',
+    component: DashboardLayout,
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: '',
+        name: 'Dashboard',
+        component: () => import('../screens/auth/profile.vue'),
       },
     ],
   },

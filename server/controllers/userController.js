@@ -6,10 +6,9 @@ import User from '../models/userModel.js'
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
-  const { username, password } = req.body
+  const { email, password } = req.body
 
-  const user = await User.findOne({ username })
-  const matchedPassword = await user.matchPassword(password)
+  const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -30,7 +29,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, username, email, password } = req.body
+  const { firstName, lastName, email, password } = req.body
 
   const userExists = await User.findOne({ email })
 
@@ -42,7 +41,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     firstName,
     lastName,
-    username,
     email,
     password,
   })
@@ -52,7 +50,6 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
-      username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),

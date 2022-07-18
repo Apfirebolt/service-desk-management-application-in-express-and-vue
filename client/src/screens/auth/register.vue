@@ -32,23 +32,6 @@
                 @submit.prevent="handleSubmit(attemptSignUp)"
               >
                 <div>
-                  <ValidationProvider v-slot="{ errors }" name="Username" rules="required">
-                    <t-input-group
-                      label="Your Username*"
-                      :feedback="errors[0]"
-                      :variant="errors.length > 0 ? 'danger' : ''"
-                    >
-                      <t-input
-                        v-model="user.username"
-                        placeholder="Username"
-                        type="text"
-                        name="username"
-                        :variant="errors.length > 0 ? 'danger' : ''"
-                      />
-                    </t-input-group>
-                  </ValidationProvider>
-                </div>
-                <div>
                   <ValidationProvider v-slot="{ errors }" name="First Name" rules="required">
                     <t-input-group
                       label="First Name*"

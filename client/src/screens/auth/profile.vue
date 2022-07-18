@@ -160,15 +160,6 @@
                 Profile Settings
               </h1>
             </div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              <!-- Replace with your content -->
-              <div class="my-2 border-4 border-dashed border-gray-200 px-2 py-4 rounded-lg">
-                <change-general-settings :profile-data="profileData" @updateProfile="updateProfileAction" />
-                <change-password-form @changePassword="updateProfileAction" />
-                <upload-profile-picture />
-              </div>
-              <!-- /End replace -->
-            </div>
           </div>
         </main>
       </div>
@@ -180,18 +171,12 @@ import { mapActions, mapGetters } from 'vuex';
 import * as authTypes from '../../store/modules/auth/auth-types';
 import DesktopSidebarComponent from '../../components/common/sidebar.vue';
 import MobileMenuComponent from '../../components/common/mobile-menu.vue';
-import ChangePasswordForm from '../../components/profile/change-password.vue';
-import UploadProfilePicture from '../../components/profile/profile-picture.vue';
-import ChangeGeneralSettings from '../../components/profile/general-settings.vue';
 
 export default {
   name: 'InvestmentHome',
   components: {
     DesktopSidebarComponent,
     MobileMenuComponent,
-    ChangePasswordForm,
-    UploadProfilePicture,
-    ChangeGeneralSettings,
   },
   data() {
     return {
