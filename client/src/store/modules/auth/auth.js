@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as types from './auth-types';
 import events from '../../../plugins/events';
 import router from '../../../routes';
@@ -34,7 +33,7 @@ const mutations = {
 const actions = {
   [types.REGISTER_USER]: (payload) => {
     const url = `${process.env.VUE_APP_ROOT_API}accounts/api/register`;
-    axios.post(url, payload)
+    interceptor.post(url, payload)
       .then((response) => {
       })
       .catch((err) => {
@@ -44,16 +43,19 @@ const actions = {
   // Action for logging in user
   [types.SET_TOKEN_ACTION]: ({ commit }, payload) => {
     const url = 'api/users/login';
-    axios.post(url, payload)
+    interceptor.post(url, payload)
       .then((response) => {
-        events.emit('add_toast', {
-          content: 'Successfully logged in',
-          type: 'success',
-        });
-        commit(types.SET_TOKEN, response.data.token);
-        localStorage.setItem('Token', response.data.token);
-        localStorage.setItem('userId', response.data._id);
-        router.push({ name: 'Dashboard' });
+        if (response) {
+          events.emit('add_toast', {
+            content: 'Successfully logged in',
+            type: 'success',
+          });
+          console.log('Response is ', response)
+          commit(types.SET_TOKEN, response.token);
+          localStorage.setItem('Token', response.token);
+          localStorage.setItem('userId', response._id);
+          router.push({ name: 'Dashboard' });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +92,7 @@ const actions = {
 
   // Get the profile data of the user
   [types.GET_PROFILE_DATA_ACTION]: ({ commit }) => {
-    const url = 'users/profile';
+    const url = 'api/users/profile';
     interceptor.get(url)
       .then((response) => {
         commit(types.SET_PROFILE_DATA, response);

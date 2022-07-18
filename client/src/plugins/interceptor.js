@@ -4,7 +4,7 @@ import router from '../routes';
 
 let baseURL = process.env.VUE_APP_API_URL;
 if (!baseURL) {
-  baseURL = '/api';
+  baseURL = '/';
 }
 
 function getErrorMessage(response) {
@@ -42,6 +42,7 @@ httpClient.interceptors.response.use((response) => {
     if (error.response.status === 401 || error.response.status === 403) {
       router.push({ name: 'Login' });
       window.localStorage.removeItem('access_token');
+      
       events.emit('add_toast', {
         content: getErrorMessage(error.response),
         type: 'danger',
