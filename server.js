@@ -6,6 +6,8 @@ import { notFound, errorHandler } from './server/middleware/errorMiddleware.js'
 import connectDB from './server/config/db.js'
 
 import userRoutes from './server/routes/authRoutes.js'
+import complaintRoutes from './server/routes/complaintRoutes.js'
+import departmentRoutes from './server/routes/departmentRoutes.js'
 
 dotenv.config()
 
@@ -22,6 +24,8 @@ app.use(express.json())
 const __dirname = path.resolve()
 
 app.use('/api/users', userRoutes)
+app.use('/api/departments', departmentRoutes)
+app.use('/api/complaints', complaintRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/client/build')))
