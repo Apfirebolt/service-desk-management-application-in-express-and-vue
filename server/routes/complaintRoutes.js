@@ -15,7 +15,7 @@ router.route('/')
 router
   .route('/:id')
   .get(protect, getComplaint)
-  .put(protect, updateComplaint)
+  .patch(protect, updateComplaint)
   .delete(protect, deleteComplaint)
 
 export default router

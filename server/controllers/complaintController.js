@@ -14,12 +14,13 @@ const getAllComplaints = asyncHandler(async (req, res) => {
 // @route   POST /api/complaints
 // @access  Private - User
 const createComplaint = asyncHandler(async (req, res) => {
-  const { title, description, department } = req.body
+  const { title, description, department, device } = req.body
 
   const complaint = await Complaint.create({
     title,
     description,
     department,
+    device,
     createdBy: req.user._id
   })
 
@@ -35,11 +36,12 @@ const createComplaint = asyncHandler(async (req, res) => {
 // @route   PATCH /api/complaints/id
 // @access  Private - Admin only
 const updateComplaint = asyncHandler(async (req, res) => {
-  const complaint = await Complaint.findById(req.params.id)
+  const complaint = await Complaint.findOne({ createdBy: req.user._id, _id: req.params.id })
 
   if (complaint) {
     complaint.title = req.body.title || complaint.title
     complaint.description = req.body.description || complaint.description
+    complaint.device= req.body.device || complaint.device
     complaint.department = req.body.department || complaint.department
     const updatedComplaint = await complaint.save()
 
@@ -56,6 +58,11 @@ const updateComplaint = asyncHandler(async (req, res) => {
 const deleteComplaint = asyncHandler(async (req, res) => {
 
   const complaint = await Complaint.findById(req.params.id)
+ 
+  if ((complaint.createdBy.toString() !== req.user._id.toString()) && (req.user.isAdmin === false)) {
+    res.status(403)
+    throw new Error('Only complaint owner or admin can delete complaint')
+  }
 
   if (complaint) {
     await complaint.remove()
@@ -66,12 +73,17 @@ const deleteComplaint = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Delete existing complaint
+// @desc    Get existing complaint
 // @route   GET /api/complaints/id
 // @access  Private - User or Admin
 const getComplaint = asyncHandler(async (req, res) => {
 
   const complaint = await Complaint.findById(req.params.id)
+
+  if ((complaint.createdBy.toString() !== req.user._id.toString()) && (req.user.isAdmin === false)) {
+    res.status(403)
+    throw new Error('Only complaint owner and admin can view complaints')
+  }
 
   if (complaint) {
     res.json(complaint)
