@@ -5,7 +5,7 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'Expense Book',
+      title: 'Service Desk Management',
     },
   },
   publicPath: '',

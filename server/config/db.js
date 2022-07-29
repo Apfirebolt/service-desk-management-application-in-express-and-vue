@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-// local development "mongodb://localhost/expensebook"
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {

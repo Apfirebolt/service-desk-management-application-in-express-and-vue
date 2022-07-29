@@ -92,6 +92,7 @@ const actions = {
 
   // Get the profile data of the user
   [types.GET_PROFILE_DATA_ACTION]: ({ commit }) => {
+    console.log('Getting profile data..')
     const url = 'api/users/profile';
     interceptor.get(url)
       .then((response) => {
