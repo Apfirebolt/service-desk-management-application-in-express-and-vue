@@ -23,10 +23,5 @@ export default {
     HeaderComponent,
     FooterComponent,
   },
-  data() {
-    return {
-      user: {},
-    };
-  },
 };
 </script>

@@ -1,6 +1,6 @@
-import * as types from './complaint-types';
-import events from '../../../plugins/events';
-import interceptor from '../../../plugins/interceptor';
+import * as types from "./complaint-types";
+import events from "../../../plugins/events";
+import interceptor from "../../../plugins/interceptor";
 
 const state = {
   count: 0,
@@ -29,14 +29,18 @@ const mutations = {
 const actions = {
   // Create Complaint Action
   [types.CREATE_COMPLAINT_ACTION]: ({ commit }, payload) => {
-    const url = 'api/complaints';
+    const url = "api/complaints";
     interceptor
       .post(url, payload)
       .then((response) => {
         if (response) {
-          events.emit('add_toast', {
-            content: 'Complaint added successfully',
-            type: 'success',
+          events.emit("add_toast", {
+            content: "Complaint added successfully",
+            type: "success",
+          });
+          interceptor.get("api/complaints").then((response) => {
+            commit(types.SET_ALL_COMPLAINTS, response);
+            commit(types.SET_COMPLAINT_COUNT, response.count);
           });
         }
       })
@@ -47,10 +51,11 @@ const actions = {
 
   // Setting all COMPLAINTS
   [types.GET_ALL_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
-    const url = 'api/complaints';
-    interceptor.get(url, {
-      params: urlParams,
-    })
+    const url = "api/complaints";
+    interceptor
+      .get(url, {
+        params: urlParams,
+      })
       .then((response) => {
         commit(types.SET_ALL_COMPLAINTS, response);
         commit(types.SET_COMPLAINT_COUNT, response.count);
@@ -62,10 +67,11 @@ const actions = {
 
   // Setting all COMPLAINTS
   [types.GET_ALL_USER_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
-    const url = 'api/complaints/my-complaints';
-    interceptor.get(url, {
-      params: urlParams,
-    })
+    const url = "api/complaints/my-complaints";
+    interceptor
+      .get(url, {
+        params: urlParams,
+      })
       .then((response) => {
         commit(types.SET_ALL_COMPLAINTS, response);
         commit(types.SET_COMPLAINT_COUNT, response.count);
@@ -74,7 +80,6 @@ const actions = {
         console.log(err);
       });
   },
-
 
   // Set single complaint data
   [types.GET_COMPLAINT_DETAIL_ACTION]: ({ commit }, id) => {
@@ -96,9 +101,13 @@ const actions = {
       .delete(url)
       .then((response) => {
         if (response) {
-          events.emit('add_toast', {
-            content: 'Complaint deleted successfully',
-            type: 'success',
+          events.emit("add_toast", {
+            content: "Complaint deleted successfully",
+            type: "success",
+          });
+          interceptor.get("api/complaints").then((response) => {
+            commit(types.SET_ALL_COMPLAINTS, response);
+            commit(types.SET_COMPLAINT_COUNT, response.count);
           });
         }
       })
@@ -114,9 +123,13 @@ const actions = {
       .patch(url, payload)
       .then((response) => {
         if (response) {
-          events.emit('add_toast', {
-            content: 'Complaint updated successfully',
-            type: 'success',
+          events.emit("add_toast", {
+            content: "Complaint updated successfully",
+            type: "success",
+          });
+          interceptor.get("api/complaints").then((response) => {
+            commit(types.SET_ALL_COMPLAINTS, response);
+            commit(types.SET_COMPLAINT_COUNT, response.count);
           });
         }
       })

@@ -1,6 +1,6 @@
-import * as types from './department-types';
-import events from '../../../plugins/events';
-import interceptor from '../../../plugins/interceptor';
+import * as types from "./department-types";
+import events from "../../../plugins/events";
+import interceptor from "../../../plugins/interceptor";
 
 const state = {
   count: 0,
@@ -29,14 +29,18 @@ const mutations = {
 const actions = {
   // Create DEPARTMENT Action
   [types.CREATE_DEPARTMENT_ACTION]: ({ commit }, payload) => {
-    const url = 'api/departments';
+    const url = "api/departments";
     interceptor
       .post(url, payload)
       .then((response) => {
         if (response) {
-          events.emit('add_toast', {
-            content: 'Department added successfully',
-            type: 'success',
+          events.emit("add_toast", {
+            content: "Department added successfully",
+            type: "success",
+          });
+          interceptor.get(url).then((response) => {
+            commit(types.SET_ALL_DEPARTMENTS, response);
+            commit(types.SET_DEPARTMENT_COUNT, response.count);
           });
         }
       })
@@ -47,10 +51,11 @@ const actions = {
 
   // Setting all DEPARTMENTS
   [types.GET_ALL_DEPARTMENTS_ACTION]: ({ commit }, urlParams) => {
-    const url = 'api/departments';
-    interceptor.get(url, {
-      params: urlParams,
-    })
+    const url = "api/departments";
+    interceptor
+      .get(url, {
+        params: urlParams,
+      })
       .then((response) => {
         commit(types.SET_ALL_DEPARTMENTS, response);
         commit(types.SET_DEPARTMENT_COUNT, response.count);
@@ -80,9 +85,13 @@ const actions = {
       .delete(url)
       .then((response) => {
         if (response) {
-          events.emit('add_toast', {
-            content: 'Department deleted successfully',
-            type: 'success',
+          events.emit("add_toast", {
+            content: "Department deleted successfully",
+            type: "success",
+          });
+          interceptor.get("api/departments").then((response) => {
+            commit(types.SET_ALL_DEPARTMENTS, response);
+            commit(types.SET_DEPARTMENT_COUNT, response.count);
           });
         }
       })
@@ -98,9 +107,13 @@ const actions = {
       .patch(url, payload)
       .then((response) => {
         if (response) {
-          events.emit('add_toast', {
-            content: 'Department updated successfully',
-            type: 'success',
+          events.emit("add_toast", {
+            content: "Department updated successfully",
+            type: "success",
+          });
+          interceptor.get("api/departments").then((response) => {
+            commit(types.SET_ALL_DEPARTMENTS, response);
+            commit(types.SET_DEPARTMENT_COUNT, response.count);
           });
         }
       })
