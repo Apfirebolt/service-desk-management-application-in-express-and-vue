@@ -60,9 +60,25 @@ const actions = {
       });
   },
 
+  // Setting all COMPLAINTS
+  [types.GET_ALL_USER_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
+    const url = 'api/complaints/my-complaints';
+    interceptor.get(url, {
+      params: urlParams,
+    })
+      .then((response) => {
+        commit(types.SET_ALL_COMPLAINTS, response);
+        commit(types.SET_COMPLAINT_COUNT, response.count);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+
+
   // Set single complaint data
   [types.GET_COMPLAINT_DETAIL_ACTION]: ({ commit }, id) => {
-    const url = `/complaints/${id}`;
+    const url = `api/complaints/${id}`;
     interceptor
       .get(url)
       .then((response) => {
@@ -75,7 +91,7 @@ const actions = {
 
   // Delete a complaint
   [types.DELETE_COMPLAINT_ACTION]: ({ commit }, id) => {
-    const url = `/complaints/${id}`;
+    const url = `api/complaints/${id}`;
     interceptor
       .delete(url)
       .then((response) => {
@@ -93,7 +109,7 @@ const actions = {
 
   // Update a complaint
   [types.UPDATE_COMPLAINT_ACTION]: ({ commit }, payload) => {
-    const url = `/complaints/${payload._id}`;
+    const url = `api/complaints/${payload._id}`;
     interceptor
       .patch(url, payload)
       .then((response) => {

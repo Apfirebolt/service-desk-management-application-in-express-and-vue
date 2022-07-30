@@ -6,7 +6,15 @@ import Complaint from '../models/complaintModel.js'
 // @access  Public
 const getAllComplaints = asyncHandler(async (req, res) => {
   const complaints = await Complaint.find({})
-  console.log('Complaints are ', complaints)
+
+  res.json(complaints)
+})
+
+// @desc    List of all user complaints
+// @route   POST /api/complaints/my-complaints
+// @access  Public
+const getMyComplaints = asyncHandler(async (req, res) => {
+  const complaints = await Complaint.find({ createdBy: req.user._id })
 
   res.json(complaints)
 })
@@ -99,5 +107,6 @@ export {
   createComplaint,
   updateComplaint,
   deleteComplaint,
-  getComplaint
+  getComplaint,
+  getMyComplaints
 }

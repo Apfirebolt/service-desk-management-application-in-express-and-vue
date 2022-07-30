@@ -5,7 +5,8 @@ import {
   getAllComplaints,
   getComplaint,
   updateComplaint,
-  deleteComplaint
+  deleteComplaint,
+  getMyComplaints
 } from '../controllers/complaintController.js'
 import { protect } from '../middleware/authMiddleware.js'
 
@@ -17,5 +18,9 @@ router
   .get(protect, getComplaint)
   .patch(protect, updateComplaint)
   .delete(protect, deleteComplaint)
+router
+  .route('/my-complaints')
+  .get(protect, getMyComplaints)
+
 
 export default router

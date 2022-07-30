@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>
-        Admin Layout
+    <p class="text-3xl text-center py-3 text-red-600">
+      Admin Layout
     </p>
     <router-view />
   </div>

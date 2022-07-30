@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Admin View</p>
+    <p class="text-3xl text-center">Admin View</p>
     {{ profileData }}
   </div>
 </template>
