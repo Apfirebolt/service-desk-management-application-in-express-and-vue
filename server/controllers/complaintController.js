@@ -47,6 +47,11 @@ const createComplaint = asyncHandler(async (req, res) => {
 const updateComplaint = asyncHandler(async (req, res) => {
   const complaint = await Complaint.findOne({ createdBy: req.user._id, _id: req.params.id })
 
+  if ((complaint.createdBy.toString() !== req.user._id.toString()) && (req.user.isAdmin === false)) {
+    res.status(403)
+    throw new Error('Only complaint owner or admin can edit complaint')
+  }
+
   if (complaint) {
     complaint.title = req.body.title || complaint.title
     complaint.description = req.body.description || complaint.description

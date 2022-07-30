@@ -120,10 +120,32 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.json(users)
 })
 
+// @desc    Delete a user
+// @route   GET /api/users/:id
+// @access  Admin only
+const deleteUser = asyncHandler(async (req, res) => {
+
+  const user = await User.findById(req.params.id)
+ 
+  if (req.user.isAdmin === false) {
+    res.status(403)
+    throw new Error('Only admin can delete a user account')
+  }
+
+  if (user) {
+    await user.remove()
+    res.json({ message: 'User removed' })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
 export {
   authUser,
   registerUser,
   getUserProfile,
   updateUserProfile,
-  getAllUsers
+  getAllUsers,
+  deleteUser
 }

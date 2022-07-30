@@ -1,17 +1,18 @@
 <template>
-  <div class="w-3/4 mx-auto">
+  <div class="w-3/4 py-3 mx-auto">
+    <admin-header-component />
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
       <confirm-modal
         :message="deleteMessage"
-        @confirm="deleteDepartment"
+        @confirm="deleteUser"
         @cancel="isConfirmModalOpened = false"
       />
     </t-modal>
-    <div class="max-w-7xl my-3 flex justify-between mx-auto px-4 sm:px-6 md:px-8">
+    <div class="max-w-7xl my-3 flex justify-between mx-auto">
       <h1 class="text-2xl font-semibold text-gray-900">Users</h1>
     </div>
   
-    <div class="max-w-7xl flex justify-between mx-auto px-4 sm:px-6 md:px-8">
+    <div class="max-w-7xl flex justify-between mx-auto">
     
       <t-table
         :headers="['Name', 'Email', 'Actions']"
@@ -30,7 +31,7 @@
               <button
                 type="button"
                 class="hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
-                
+                @click="openConfirmDeleteModal(props.row._id)"
               >
                 <svg
                   class="mr-2.5 h-5 w-5 text-gray-400"
@@ -53,12 +54,25 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import ConfirmModal from "../../components/common/confirm-modal.vue";
+import AdminHeaderComponent from '../../components/common/admin-header.vue';
 import * as userTypes from "../../store/modules/auth/auth-types";
 
 export default {
   name: "AdminUser",
+  components: {
+    ConfirmModal,
+    AdminHeaderComponent
+  },
   data() {
     return {
+      urlParams: {
+        page: 1,
+        limit: 5,
+      },
+      isConfirmModalOpened: false,
+      selectedUser: null,
+      deleteMessage: "",
       urlParams: {
         page: 1,
         limit: 5,
@@ -85,6 +99,7 @@ export default {
   methods: {
     ...mapActions({
       getAllUsers: userTypes.GET_ALL_USERS_ACTION,
+      deleteUserAction: userTypes.DELETE_USER_ACTION
     }),
     async updateRoute() {
       try {
@@ -92,6 +107,16 @@ export default {
       } catch (navigationError) {
         // Catch and ignore navigation errors caused through multiple params changed
       }
+    },
+    deleteUser() {
+      this.isConfirmModalOpened = false;
+      this.deleteUserAction(this.selectedUser._id);
+      this.getAllUsers();
+    },
+    openConfirmDeleteModal(id) {
+      this.isConfirmModalOpened = true;
+      this.selectedUser = this.allUsers.find((item) => item._id === id);
+      this.deleteMessage = `Are you sure you want to delete User with email "${this.selectedUser.email}" ?`;
     },
   },
 };

@@ -74,8 +74,8 @@ const actions = {
   },
 
   // Delete a DEPARTMENT
-  [types.DELETE_DEPARTMENT_ACTION]: ({ commit }, id) => {
-    const url = `api/departments/${id}`;
+  [types.DELETE_DEPARTMENT_ACTION]: ({ commit }, name) => {
+    const url = `api/departments/${name}`;
     interceptor
       .delete(url)
       .then((response) => {
@@ -93,7 +93,7 @@ const actions = {
 
   // Update a DEPARTMENT
   [types.UPDATE_DEPARTMENT_ACTION]: ({ commit }, payload) => {
-    const url = `api/departments/${payload._id}`;
+    const url = `api/departments/${payload.name}`;
     interceptor
       .patch(url, payload)
       .then((response) => {

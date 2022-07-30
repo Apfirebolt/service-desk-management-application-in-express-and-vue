@@ -134,6 +134,18 @@ const actions = {
         console.error(err);
       });
   },
+
+  // Delete user - Admin only
+  [types.DELETE_USER_ACTION]: ({ commit }, id) => {
+    const url = `api/users/${id}`;
+    interceptor.delete(url)
+      .then((response) => {
+        commit(types.SET_ALL_USERS, response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
 };
 
 export default {

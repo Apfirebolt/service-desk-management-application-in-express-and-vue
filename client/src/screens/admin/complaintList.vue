@@ -1,10 +1,15 @@
 <template>
-  <div class="w-3/4 mx-auto">
+  <div class="w-3/4 py-3 mx-auto">
+    <admin-header-component />
     <t-modal v-model="isAddComplaintModalOpened" header="Add Complaint">
-      <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" :departments="allDepartments" />
+      <complaint-form
+        @submit="addComplaint"
+        @cancel="isAddComplaintModalOpened = false"
+        :departments="allDepartments"
+      />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
-      <update-complaint-form
+      <complaint-form
         :complaint="selectedComplaint"
         @updateComplaint="updateComplaint"
         @cancel="isUpdateModalOpened = false"
@@ -18,45 +23,62 @@
         @cancel="isConfirmModalOpened = false"
       />
     </t-modal>
-    <div class="max-w-7xl my-3 flex justify-between mx-auto px-4 sm:px-6 md:px-8">
+    <div class="max-w-7xl my-3 flex justify-between mx-auto">
       <h1 class="text-2xl font-semibold text-gray-900">Complaint</h1>
       <t-button @click="isAddComplaintModalOpened = true"> Add Complaint </t-button>
     </div>
     <t-table
-        :headers="['Name', 'Description', 'Actions']"
-        :data="allComplaints"
-        class="bg-white shadow-sm"
-      >
-        <template slot="row" slot-scope="props">
-          <tr>
-            <td class="p-3">
-              {{ props.row.title }}
-            </td>
-            <td class="p-3">
-              {{ props.row.description }}
-            </td>
-            <td class="p-3">
-              <button
-                type="button"
-                class="hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
-                @click="openConfirmDeleteModal(props.row._id)"
+      :headers="['Name', 'Description', 'Actions']"
+      :data="allComplaints"
+      class="bg-white shadow-sm"
+    >
+      <template slot="row" slot-scope="props">
+        <tr>
+          <td class="p-3">
+            {{ props.row.title }}
+          </td>
+          <td class="p-3">
+            {{ props.row.description }}
+          </td>
+          <td class="p-3">
+            <button
+              type="button"
+              class="hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+              @click="openConfirmDeleteModal(props.row._id)"
+            >
+              <svg
+                class="mr-2.5 h-5 w-5 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  class="mr-2.5 h-5 w-5 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z"
-                  />
-                </svg>
-                <span>Remove</span>
-              </button>
-            </td>
-          </tr>
-        </template>
-      </t-table>
+                <path
+                  d="M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z"
+                />
+              </svg>
+              <span>Remove</span>
+            </button>
+            <button
+              type="button"
+              class="hidden sm:inline-flex relative items-center mx-2 px-4 py-2 rounded-md border border-gray-300 bg-blue-200 text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+              @click="openUpdateComplaintModal(props.row._id)"
+            >
+              <svg
+                class="mr-2.5 h-5 w-5 text-black"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+              <span>Edit</span>
+            </button>
+          </td>
+        </tr>
+      </template>
+    </t-table>
   </div>
 </template>
 <script>
@@ -66,6 +88,7 @@ import * as departmentTypes from "../../store/modules/departments/department-typ
 import ComplaintForm from "../../components/complaints/complaintForm.vue";
 import ComplaintCard from "../../components/complaints/complaintCard.vue";
 import ConfirmModal from "../../components/common/confirm-modal.vue";
+import AdminHeaderComponent from '../../components/common/admin-header.vue';
 
 export default {
   name: "AdminComplaint",
@@ -73,6 +96,7 @@ export default {
     ComplaintForm,
     ComplaintCard,
     ConfirmModal,
+    AdminHeaderComponent
   },
   data() {
     return {
@@ -92,7 +116,7 @@ export default {
     ...mapGetters({
       allComplaints: complaintTypes.GET_ALL_COMPLAINTS,
       complaintCount: complaintTypes.GET_COMPLAINT_COUNT,
-      allDepartments: departmentTypes.GET_ALL_DEPARTMENTS
+      allDepartments: departmentTypes.GET_ALL_DEPARTMENTS,
     }),
   },
   watch: {
@@ -114,7 +138,7 @@ export default {
       updateComplaintAction: complaintTypes.UPDATE_COMPLAINT_ACTION,
       deleteComplaintAction: complaintTypes.DELETE_COMPLAINT_ACTION,
       getAllComplaints: complaintTypes.GET_ALL_COMPLAINTS_ACTION,
-      getAllDepartments: departmentTypes.GET_ALL_DEPARTMENTS_ACTION
+      getAllDepartments: departmentTypes.GET_ALL_DEPARTMENTS_ACTION,
     }),
     async updateRoute() {
       try {
