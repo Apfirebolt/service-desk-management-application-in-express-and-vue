@@ -1,10 +1,10 @@
 <template>
   <div class="bg-white shadow-sm rounded-md">
     <t-modal v-model="isAddComplaintModalOpened" header="Add Complaint">
-      <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" />
+      <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" :departments="allDepartments" />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
-      <update-complaint-form :complaint="selectedComplaint" @updateComplaint="updateComplaint" @cancel="isUpdateModalOpened = false" />
+      <complaint-form :complaint="selectedComplaint" @updateComplaint="updateComplaint" @cancel="isUpdateModalOpened = false" />
     </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
       <confirm-modal :message="deleteMessage" @confirm="deleteComplaint" @cancel="isConfirmModalOpened = false" />
@@ -107,7 +107,7 @@
                 alt="Workflow"
               >
             </div>
-            <desktop-sidebar-component />
+            <desktop-sidebar-component :profileData="profileData" />
           </div>
         </div>
       </div>
@@ -149,10 +149,10 @@
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               <!-- Replace with your content -->
-              <div class="my-2 border-4 border-dashed border-gray-200 px-2 py-4 rounded-lg">
+              <div class="my-2 bg-gray-200 px-2 py-4 rounded-lg">
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
                   <div v-for="complaint in allComplaints" :key="complaint._id">
-                    <complaint-card :complaint="complaint" @deletecomplaint="openConfirmDeleteModal" @updatecomplaint="openUpdatecomplaintModal" />
+                    <complaint-card :complaint="complaint" @deleteComplaint="openConfirmDeleteModal" @updateComplaint="openUpdatecomplaintModal" />
                   </div>
                 </div>
               </div>
@@ -177,6 +177,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import * as complaintTypes from '../../store/modules/complaints/complaint-types';
+import * as authTypes from '../../store/modules/auth/auth-types';
+import * as departmentTypes from "../../store/modules/departments/department-types";
 import ComplaintForm from '../../components/complaints/complaintForm.vue';
 import ComplaintCard from '../../components/complaints/complaintCard.vue';
 import DesktopSidebarComponent from '../../components/common/sidebar.vue';
@@ -209,7 +211,9 @@ export default {
   computed: {
     ...mapGetters({
       allComplaints: complaintTypes.GET_ALL_COMPLAINTS,
-      ComplaintCount: complaintTypes.GET_COMPLAINT_COUNT,
+      complaintCount: complaintTypes.GET_COMPLAINT_COUNT,
+      profileData: authTypes.GET_PROFILE_DATA,
+      allDepartments: departmentTypes.GET_ALL_DEPARTMENTS,
     }),
   },
   watch: {
@@ -223,6 +227,7 @@ export default {
   },
   mounted() {
     this.getAllComplaints(this.urlParams);
+    this.getAllDepartments();
   },
   methods: {
     ...mapActions({
@@ -230,6 +235,7 @@ export default {
       updateComplaintAction: complaintTypes.UPDATE_COMPLAINT_ACTION,
       deleteComplaintAction: complaintTypes.DELETE_COMPLAINT_ACTION,
       getAllComplaints: complaintTypes.GET_ALL_COMPLAINTS_ACTION,
+      getAllDepartments: departmentTypes.GET_ALL_DEPARTMENTS_ACTION,
     }),
     async updateRoute() {
       try {
@@ -257,7 +263,7 @@ export default {
       this.deleteComplaintAction(this.selectedComplaint._id);
       this.getAllComplaints();
     },
-    openUpdateComplaintModal(id) {
+    openUpdatecomplaintModal(id) {
       this.isUpdateModalOpened = true;
       this.selectedComplaint = this.allComplaints.find((item) => item._id === id);
     },

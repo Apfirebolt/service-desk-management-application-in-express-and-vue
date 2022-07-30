@@ -95,11 +95,6 @@ export default {
         this.$emit('submit', this.complaintData);
       }
     },
-    handleContentUpdate(content) {
-      this.complaintData = {
-        content,
-      };
-    },
   },
 };
 </script>

@@ -2,10 +2,7 @@
   <div class="relative bg-white">
     <div class="flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
       <div class="flex justify-between items-center">
-        <a href="#" class="flex md:ml-64">
-          <img class="h-8 w-auto sm:h-10" src="https://raw.githubusercontent.com/aleksandryackovlev/openapi-mock-express-middleware/master/assets/express-logo.png" alt="">
-        </a>
-        <router-link :to="{name: 'Dashboard'}" class="font-semibold text-gray-500 mx-2 text-lg cursor-pointer">
+        <router-link :to="{name: 'Dashboard'}" class="md:ml-64 font-semibold text-gray-500 mx-2 text-2xl cursor-pointer">
           Service Desk Management
         </router-link>
       </div>

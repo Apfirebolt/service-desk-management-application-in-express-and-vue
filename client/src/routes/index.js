@@ -42,11 +42,6 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'AdminHome',
-        component: () => import('../screens/admin/adminHome.vue'),
-      },
-      {
-        path: 'complaints',
         name: 'AdminComplaints',
         component: () => import('../screens/admin/complaintList.vue'),
       },

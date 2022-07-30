@@ -2,16 +2,27 @@
   <div class="flex flex-col justify-center">
     <p class="text-2xl text-center m-2">{{ complaint.title }}</p>
     <p class="text-center">{{ complaint.description }}</p>
+    <div class="flex justify-around items-center my-5">
+      <t-button type="button" variant="error" @click="deleteComplaintUtil"> Delete </t-button>
+      <t-button type="button" @click="updateComplaintUtil"> Update </t-button>
+    </div>
   </div>
 </template>
 <script>
-
 export default {
-  name: 'ComplaintCard',
+  name: "ComplaintCard",
   props: {
     complaint: {
       type: Object,
-      required: true
+      required: true,
+    },
+  },
+  methods: {
+    deleteComplaintUtil() {
+      this.$emit('deleteComplaint', this.complaint._id);
+    },
+    updateComplaintUtil() {
+      this.$emit('updateComplaint', this.complaintData);
     }
   }
 };
