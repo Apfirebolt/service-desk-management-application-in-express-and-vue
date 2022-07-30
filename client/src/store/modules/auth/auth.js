@@ -7,12 +7,14 @@ const state = {
   token: null,
   isAuthenticated: false,
   profileData: null,
+  users: [],
 };
 
 const getters = {
   [types.GET_TOKEN]: (state) => state.token,
   [types.IS_USER_AUTHENTICATED]: (state) => state.isAuthenticated,
   [types.GET_PROFILE_DATA]: (state) => state.profileData,
+  [types.GET_ALL_USERS]: (state) => state.users,
 };
 
 const mutations = {
@@ -27,6 +29,9 @@ const mutations = {
   },
   [types.SET_PROFILE_DATA]: (state, payload) => {
     state.profileData = payload;
+  },
+  [types.SET_ALL_USERS]: (state, payload) => {
+    state.users = payload;
   },
 };
 
@@ -92,7 +97,6 @@ const actions = {
 
   // Get the profile data of the user
   [types.GET_PROFILE_DATA_ACTION]: ({ commit }) => {
-    console.log('Getting profile data..')
     const url = 'api/users/profile';
     interceptor.get(url)
       .then((response) => {
@@ -113,6 +117,18 @@ const actions = {
           content: 'Profile settings updated successfully',
           type: 'success',
         });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
+
+  // Get all users
+  [types.GET_ALL_USERS_ACTION]: ({ commit }) => {
+    const url = 'api/users';
+    interceptor.get(url)
+      .then((response) => {
+        commit(types.SET_ALL_USERS, response);
       })
       .catch((err) => {
         console.error(err);

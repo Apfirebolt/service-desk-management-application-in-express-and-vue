@@ -14,6 +14,7 @@ export const LOG_OUT_SUCCESS = 'accounts/LOG_OUT_SUCCESS';
 
 export const GET_ALL_USERS = 'accounts/GET_ALL_USERS';
 export const SET_ALL_USERS = 'accounts/SET_ALL_USERS';
+export const GET_ALL_USERS_ACTION = 'accounts/GET_ALL_USERS_ACTION';
 
 export const SET_PROFILE_DATA = 'accounts/SET_PROFILE_DATA';
 export const GET_PROFILE_DATA = 'accounts/GET_PROFILE_DATA';

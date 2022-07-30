@@ -29,7 +29,7 @@ const mutations = {
 const actions = {
   // Create Complaint Action
   [types.CREATE_COMPLAINT_ACTION]: ({ commit }, payload) => {
-    const url = '/complaints';
+    const url = 'api/complaints';
     interceptor
       .post(url, payload)
       .then((response) => {
@@ -52,7 +52,7 @@ const actions = {
       params: urlParams,
     })
       .then((response) => {
-        commit(types.SET_ALL_COMPLAINTS, response.complaints);
+        commit(types.SET_ALL_COMPLAINTS, response);
         commit(types.SET_COMPLAINT_COUNT, response.count);
       })
       .catch((err) => {

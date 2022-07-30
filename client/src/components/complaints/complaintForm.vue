@@ -9,7 +9,7 @@
             :variant="errors.length > 0 ? 'danger' : ''"
           >
             <t-input
-              v-model="deviceData.title"
+              v-model="complaintData.title"
               type="text"
               name="Title"
               :variant="errors.length > 0 ? 'danger' : ''"
@@ -20,7 +20,7 @@
       <div class="grid grid-cols-2 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
         <t-input-group label="Device Selection">
           <t-select
-            v-model="deviceData.device"
+            v-model="complaintData.device"
             placeholder="Select Device"
             :options="deviceChoices"
             name="Device"
@@ -28,17 +28,19 @@
         </t-input-group>
         <t-input-group label="Department Selection">
           <t-select
-            v-model="deviceData.department"
-            placeholder="Select Device"
-            :options="deviceChoices"
+            v-model="complaintData.department"
+            placeholder="Select Department"
+            :options="departments"
             name="Device"
+            value-attribute="_id" 
+            text-attribute="name"
           />
         </t-input-group>
       </div>
       <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
         <t-input-group label="Complaint Desription (Optional)">
           <t-textarea
-            v-model="deviceData.content"
+            v-model="complaintData.description"
             rows="10"
             cols="60"
             placeholder="Describe your complaint in some detail"
@@ -66,11 +68,16 @@ export default {
       type: Object,
       required: false,
     },
+    departments: {
+      type: Array,
+      required: true,
+      default: []
+    }
   },
   data() {
     return {
-      deviceData: {
-        content: '',
+      complaintData: {
+        description: '',
       },
       deviceChoices: ['Mobile', 'Laptop', 'Other Accessories'],
     };

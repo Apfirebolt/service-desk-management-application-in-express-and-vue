@@ -6,6 +6,7 @@ import Complaint from '../models/complaintModel.js'
 // @access  Public
 const getAllComplaints = asyncHandler(async (req, res) => {
   const complaints = await Complaint.find({})
+  console.log('Complaints are ', complaints)
 
   res.json(complaints)
 })

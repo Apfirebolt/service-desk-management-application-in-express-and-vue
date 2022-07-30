@@ -1,14 +1,16 @@
 <template>
   <div>
     <p>Admin Complaint List View</p>
+    {{ allComplaints }}
     <t-modal v-model="isAddComplaintModalOpened" header="Add Complaint">
-      <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" />
+      <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" :departments="allDepartments" />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
       <update-complaint-form
         :complaint="selectedComplaint"
         @updateComplaint="updateComplaint"
         @cancel="isUpdateModalOpened = false"
+        :departments="allDepartments"
       />
     </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
@@ -27,6 +29,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as complaintTypes from "../../store/modules/complaints/complaint-types";
+import * as departmentTypes from "../../store/modules/departments/department-types";
 import ComplaintForm from "../../components/complaints/complaintForm.vue";
 import ComplaintCard from "../../components/complaints/complaintCard.vue";
 import ConfirmModal from "../../components/common/confirm-modal.vue";
@@ -55,7 +58,8 @@ export default {
   computed: {
     ...mapGetters({
       allComplaints: complaintTypes.GET_ALL_COMPLAINTS,
-      ComplaintCount: complaintTypes.GET_COMPLAINT_COUNT,
+      complaintCount: complaintTypes.GET_COMPLAINT_COUNT,
+      allDepartments: departmentTypes.GET_ALL_DEPARTMENTS
     }),
   },
   watch: {
@@ -69,6 +73,7 @@ export default {
   },
   mounted() {
     this.getAllComplaints(this.urlParams);
+    this.getAllDepartments();
   },
   methods: {
     ...mapActions({
@@ -76,6 +81,7 @@ export default {
       updateComplaintAction: complaintTypes.UPDATE_COMPLAINT_ACTION,
       deleteComplaintAction: complaintTypes.DELETE_COMPLAINT_ACTION,
       getAllComplaints: complaintTypes.GET_ALL_COMPLAINTS_ACTION,
+      getAllDepartments: departmentTypes.GET_ALL_DEPARTMENTS_ACTION
     }),
     async updateRoute() {
       try {
