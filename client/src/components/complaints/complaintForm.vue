@@ -71,7 +71,7 @@ export default {
     departments: {
       type: Array,
       required: true,
-      default: []
+      default: () => []
     }
   },
   data() {

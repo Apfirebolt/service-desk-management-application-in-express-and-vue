@@ -4,7 +4,7 @@
       <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" :departments="allDepartments" />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
-      <complaint-form :complaint="selectedComplaint" @updateComplaint="updateComplaint" @cancel="isUpdateModalOpened = false" />
+      <complaint-form :complaint="selectedComplaint" @updateComplaint="openUpdatecomplaintModal" :departments="allDepartments" @cancel="isUpdateModalOpened = false" />
     </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
       <confirm-modal :message="deleteMessage" @confirm="deleteComplaint" @cancel="isConfirmModalOpened = false" />

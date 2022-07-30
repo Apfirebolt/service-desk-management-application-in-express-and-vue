@@ -22,7 +22,7 @@ export default {
       this.$emit('deleteComplaint', this.complaint._id);
     },
     updateComplaintUtil() {
-      this.$emit('updateComplaint', this.complaintData);
+      this.$emit('updateComplaint', this.complaint._id);
     }
   }
 };
