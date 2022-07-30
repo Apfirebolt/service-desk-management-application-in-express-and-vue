@@ -29,7 +29,7 @@ const mutations = {
 const actions = {
   // Create DEPARTMENT Action
   [types.CREATE_DEPARTMENT_ACTION]: ({ commit }, payload) => {
-    const url = '/departments';
+    const url = 'api/departments';
     interceptor
       .post(url, payload)
       .then((response) => {
@@ -47,12 +47,12 @@ const actions = {
 
   // Setting all DEPARTMENTS
   [types.GET_ALL_DEPARTMENTS_ACTION]: ({ commit }, urlParams) => {
-    const url = '/departments';
+    const url = 'api/departments';
     interceptor.get(url, {
       params: urlParams,
     })
       .then((response) => {
-        commit(types.SET_ALL_DEPARTMENTS, response.departments);
+        commit(types.SET_ALL_DEPARTMENTS, response);
         commit(types.SET_DEPARTMENT_COUNT, response.count);
       })
       .catch((err) => {
@@ -62,7 +62,7 @@ const actions = {
 
   // Set single DEPARTMENT data
   [types.GET_DEPARTMENT_DETAIL_ACTION]: ({ commit }, id) => {
-    const url = `/departments/${id}`;
+    const url = `api/departments/${id}`;
     interceptor
       .get(url)
       .then((response) => {
@@ -75,7 +75,7 @@ const actions = {
 
   // Delete a DEPARTMENT
   [types.DELETE_DEPARTMENT_ACTION]: ({ commit }, id) => {
-    const url = `/departments/${id}`;
+    const url = `api/departments/${id}`;
     interceptor
       .delete(url)
       .then((response) => {
@@ -93,7 +93,7 @@ const actions = {
 
   // Update a DEPARTMENT
   [types.UPDATE_DEPARTMENT_ACTION]: ({ commit }, payload) => {
-    const url = `/departments/${payload._id}`;
+    const url = `api/departments/${payload._id}`;
     interceptor
       .patch(url, payload)
       .then((response) => {

@@ -8,15 +8,6 @@ import * as authTypes from '../store/modules/auth/auth-types';
 
 Vue.use(VueRouter);
 
-const adminAuthGuard = (to, from, next) => {
-  if (store.state.auth) {
-    const userData = store.state.auth;
-    console.log('User data is ', store.getters)
-  }
-  next();
-}
-
-
 const routes = [
   {
     path: '/',
@@ -48,7 +39,6 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-    beforeEnter : adminAuthGuard,
     children: [
       {
         path: '',
