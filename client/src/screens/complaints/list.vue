@@ -246,7 +246,6 @@ export default {
       };
       this.addComplaintAction(formattedPayload);
       this.isAddComplaintModalOpened = false;
-      this.getAllComplaints();
     },
     closeSidebar() {
       this.showSidebar = !this.showSidebar;
@@ -254,7 +253,6 @@ export default {
     deleteComplaint() {
       this.isConfirmModalOpened = false;
       this.deleteComplaintAction(this.selectedComplaint._id);
-      this.getAllComplaints();
     },
     openUpdateComplaintModal(id) {
       this.isUpdateModalOpened = true;
@@ -263,7 +261,6 @@ export default {
     updateComplaint() {
       this.isUpdateModalOpened = false;
       this.updateComplaintAction(this.selectedComplaint);
-      this.getAllComplaints();
     },
     openConfirmDeleteModal(id) {
       this.isConfirmModalOpened = true;

@@ -51,6 +51,16 @@
         </template>
       </t-table>
     </div>
+    <div class="flex justify-center my-3">
+      <div class="class max-w-2xl">
+        <t-pagination
+          v-model="urlParams.page"
+          :total-items="userCount"
+          :per-page="urlParams.limit"
+          :limit="5"
+        />
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -79,6 +89,7 @@ export default {
   computed: {
     ...mapGetters({
       allUsers: userTypes.GET_ALL_USERS,
+      userCount: userTypes.GET_USER_COUNT
     }),
   },
   watch: {
@@ -108,7 +119,6 @@ export default {
     deleteUser() {
       this.isConfirmModalOpened = false;
       this.deleteUserAction(this.selectedUser._id);
-      this.getAllUsers();
     },
     openConfirmDeleteModal(id) {
       this.isConfirmModalOpened = true;

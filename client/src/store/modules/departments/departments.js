@@ -39,8 +39,8 @@ const actions = {
             type: "success",
           });
           interceptor.get(url).then((response) => {
-            commit(types.SET_ALL_DEPARTMENTS, response);
-            commit(types.SET_DEPARTMENT_COUNT, response.count);
+            commit(types.SET_ALL_DEPARTMENTS, response.data);
+            commit(types.SET_DEPARTMENT_COUNT, response.total);
           });
         }
       })
@@ -57,8 +57,8 @@ const actions = {
         params: urlParams,
       })
       .then((response) => {
-        commit(types.SET_ALL_DEPARTMENTS, response);
-        commit(types.SET_DEPARTMENT_COUNT, response.count);
+        commit(types.SET_ALL_DEPARTMENTS, response.data);
+        commit(types.SET_DEPARTMENT_COUNT, response.total);
       })
       .catch((err) => {
         console.log(err);
@@ -90,8 +90,8 @@ const actions = {
             type: "success",
           });
           interceptor.get("api/departments").then((response) => {
-            commit(types.SET_ALL_DEPARTMENTS, response);
-            commit(types.SET_DEPARTMENT_COUNT, response.count);
+            commit(types.SET_ALL_DEPARTMENTS, response.data);
+            commit(types.SET_DEPARTMENT_COUNT, response.total);
           });
         }
       })
@@ -112,8 +112,8 @@ const actions = {
             type: "success",
           });
           interceptor.get("api/departments").then((response) => {
-            commit(types.SET_ALL_DEPARTMENTS, response);
-            commit(types.SET_DEPARTMENT_COUNT, response.count);
+            commit(types.SET_ALL_DEPARTMENTS, response.data);
+            commit(types.SET_DEPARTMENT_COUNT, response.total);
           });
         }
       })

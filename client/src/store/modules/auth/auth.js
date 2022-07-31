@@ -8,6 +8,7 @@ const state = {
   isAuthenticated: false,
   profileData: null,
   users: [],
+  count: 0
 };
 
 const getters = {
@@ -15,6 +16,7 @@ const getters = {
   [types.IS_USER_AUTHENTICATED]: (state) => state.isAuthenticated,
   [types.GET_PROFILE_DATA]: (state) => state.profileData,
   [types.GET_ALL_USERS]: (state) => state.users,
+  [types.GET_USER_COUNT]: (state) => state.count,
 };
 
 const mutations = {
@@ -32,6 +34,9 @@ const mutations = {
   },
   [types.SET_ALL_USERS]: (state, payload) => {
     state.users = payload;
+  },
+  [types.SET_USER_COUNT]: (state, payload) => {
+    state.count = payload;
   },
 };
 
@@ -128,7 +133,8 @@ const actions = {
     const url = 'api/users';
     interceptor.get(url)
       .then((response) => {
-        commit(types.SET_ALL_USERS, response);
+        commit(types.SET_ALL_USERS, response.data);
+        commit(types.SET_USER_COUNT, response.total);
       })
       .catch((err) => {
         console.error(err);
@@ -140,7 +146,10 @@ const actions = {
     const url = `api/users/${id}`;
     interceptor.delete(url)
       .then((response) => {
-        commit(types.SET_ALL_USERS, response);
+        interceptor.get("api/users").then((response) => {
+          commit(types.SET_ALL_USERS, response.data);
+          commit(types.SET_USER_COUNT, response.total);
+        });
       })
       .catch((err) => {
         console.error(err);

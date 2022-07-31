@@ -115,9 +115,25 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @route   GET /api/users
 // @access  Public
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({})
+  const itemsPerPage = 5;
+  const startPage = req.query.page || 1;
 
-  res.json(users)
+  await User.find({})
+    .skip(itemsPerPage * startPage - itemsPerPage)
+    .limit(itemsPerPage)
+    .exec(function (err, users) {
+      User.countDocuments().exec(function (err, count) {
+        if (err) return next(err);
+        res.status(200).json({
+          data: users,
+          total: count,
+          success: true,
+          itemsPerPage,
+          startPage,
+          lastPage: Math.ceil(count / itemsPerPage),
+        });
+      });
+    });
 })
 
 // @desc    Delete a user

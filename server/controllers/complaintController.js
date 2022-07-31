@@ -5,10 +5,27 @@ import Complaint from '../models/complaintModel.js'
 // @route   POST /api/complaints
 // @access  Public
 const getAllComplaints = asyncHandler(async (req, res) => {
-  const complaints = await Complaint.find({})
+  const itemsPerPage = 5;
+  const startPage = req.query.page || 1;
 
-  res.json(complaints)
+  await Complaint.find({})
+    .skip(itemsPerPage * startPage - itemsPerPage)
+    .limit(itemsPerPage)
+    .exec(function (err, complaints) {
+      Complaint.countDocuments().exec(function (err, count) {
+        if (err) return next(err);
+        res.status(200).json({
+          data: complaints,
+          total: count,
+          success: true,
+          itemsPerPage,
+          startPage,
+          lastPage: Math.ceil(count / itemsPerPage),
+        });
+      });
+    });
 })
+
 
 // @desc    List of all user complaints
 // @route   POST /api/complaints/my-complaints

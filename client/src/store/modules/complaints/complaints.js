@@ -39,8 +39,8 @@ const actions = {
             type: "success",
           });
           interceptor.get("api/complaints").then((response) => {
-            commit(types.SET_ALL_COMPLAINTS, response);
-            commit(types.SET_COMPLAINT_COUNT, response.count);
+            commit(types.SET_ALL_COMPLAINTS, response.data);
+            commit(types.SET_COMPLAINT_COUNT, response.total);
           });
         }
       })
@@ -57,8 +57,9 @@ const actions = {
         params: urlParams,
       })
       .then((response) => {
-        commit(types.SET_ALL_COMPLAINTS, response);
-        commit(types.SET_COMPLAINT_COUNT, response.count);
+        console.log('All complaints response ', response)
+        commit(types.SET_ALL_COMPLAINTS, response.data);
+        commit(types.SET_COMPLAINT_COUNT, response.total);
       })
       .catch((err) => {
         console.log(err);
@@ -73,8 +74,8 @@ const actions = {
         params: urlParams,
       })
       .then((response) => {
-        commit(types.SET_ALL_COMPLAINTS, response);
-        commit(types.SET_COMPLAINT_COUNT, response.count);
+        commit(types.SET_ALL_COMPLAINTS, response.data);
+        commit(types.SET_COMPLAINT_COUNT, response.total);
       })
       .catch((err) => {
         console.log(err);
@@ -106,8 +107,8 @@ const actions = {
             type: "success",
           });
           interceptor.get("api/complaints").then((response) => {
-            commit(types.SET_ALL_COMPLAINTS, response);
-            commit(types.SET_COMPLAINT_COUNT, response.count);
+            commit(types.SET_ALL_COMPLAINTS, response.data);
+            commit(types.SET_COMPLAINT_COUNT, response.total);
           });
         }
       })
@@ -128,8 +129,8 @@ const actions = {
             type: "success",
           });
           interceptor.get("api/complaints").then((response) => {
-            commit(types.SET_ALL_COMPLAINTS, response);
-            commit(types.SET_COMPLAINT_COUNT, response.count);
+            commit(types.SET_ALL_COMPLAINTS, response.data);
+            commit(types.SET_COMPLAINT_COUNT, response.total);
           });
         }
       })

@@ -19,14 +19,10 @@
       />
     </t-modal>
     <div class="max-w-7xl my-3 flex justify-between mx-auto">
-      <h1 class="text-2xl font-semibold text-gray-900">
-        Department
-      </h1>
-      <t-button @click="isAddDepartmentModalOpened = true">
-        Add Department
-      </t-button>
+      <h1 class="text-2xl font-semibold text-gray-900">Department</h1>
+      <t-button @click="isAddDepartmentModalOpened = true"> Add Department </t-button>
     </div>
-  
+
     <div class="max-w-7xl flex justify-between mx-auto">
       <t-table
         :headers="['Name', 'Description', 'Actions']"
@@ -81,6 +77,16 @@
         </template>
       </t-table>
     </div>
+    <div class="flex justify-center my-3">
+      <div class="class max-w-2xl">
+        <t-pagination
+          v-model="urlParams.page"
+          :total-items="departmentCount"
+          :per-page="urlParams.limit"
+          :limit="5"
+        />
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -88,14 +94,14 @@ import { mapActions, mapGetters } from "vuex";
 import * as departmentTypes from "../../store/modules/departments/department-types";
 import DepartmentForm from "../../components/departments/departmentForm.vue";
 import ConfirmModal from "../../components/common/confirm-modal.vue";
-import AdminHeaderComponent from '../../components/common/admin-header.vue';
+import AdminHeaderComponent from "../../components/common/admin-header.vue";
 
 export default {
   name: "AdminDepartment",
   components: {
     DepartmentForm,
     ConfirmModal,
-    AdminHeaderComponent
+    AdminHeaderComponent,
   },
   data() {
     return {
@@ -138,7 +144,7 @@ export default {
     }),
     async updateRoute() {
       try {
-        await this.$router.push({ name: "AdminDepartment", query: this.urlParams });
+        await this.$router.push({ name: "AdminDepartments", query: this.urlParams });
       } catch (navigationError) {
         // Catch and ignore navigation errors caused through multiple params changed
       }
@@ -150,7 +156,6 @@ export default {
       };
       this.addDepartmentAction(formattedPayload);
       this.isAddDepartmentModalOpened = false;
-      this.getAllDepartments();
     },
     closeSidebar() {
       this.showSidebar = !this.showSidebar;
@@ -158,7 +163,6 @@ export default {
     deleteDepartment() {
       this.isConfirmModalOpened = false;
       this.deleteDepartmentAction(this.selectedDepartment.name);
-      this.getAllDepartments();
     },
     openUpdateDepartmentModal(id) {
       this.isUpdateModalOpened = true;
@@ -167,7 +171,6 @@ export default {
     updateDepartment() {
       this.isUpdateModalOpened = false;
       this.updateDepartmentAction(this.selectedDepartment);
-      this.getAllDepartments();
     },
     openConfirmDeleteModal(name) {
       this.isConfirmModalOpened = true;

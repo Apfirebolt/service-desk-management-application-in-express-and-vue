@@ -5,10 +5,27 @@ import Department from '../models/departmentModel.js'
 // @route   POST /api/departments
 // @access  Public
 const getAllDepartments = asyncHandler(async (req, res) => {
-  const departments = await Department.find({})
+  const itemsPerPage = 5;
+  const startPage = req.query.page || 1;
 
-  res.json(departments)
+  await Department.find({})
+    .skip(itemsPerPage * startPage - itemsPerPage)
+    .limit(itemsPerPage)
+    .exec(function (err, departments) {
+      Department.countDocuments().exec(function (err, count) {
+        if (err) return next(err);
+        res.status(200).json({
+          data: departments,
+          total: count,
+          success: true,
+          itemsPerPage,
+          startPage,
+          lastPage: Math.ceil(count / itemsPerPage),
+        });
+      });
+    });
 })
+
 
 // @desc    Create a department
 // @route   POST /api/departments
