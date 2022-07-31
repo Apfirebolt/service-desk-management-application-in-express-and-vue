@@ -27,7 +27,12 @@ const complaintSchema = mongoose.Schema(
       type: String,
       enum: ['Mobile', 'Laptop', 'Other Accessories'],
       required : true 
-    }
+    },
+    managedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "User",
+    },
   },
   {
     timestamps: true,

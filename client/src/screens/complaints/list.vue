@@ -140,7 +140,7 @@
                 Add Complaint
               </t-button>
             </div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div v-if="allComplaints.length" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               <!-- Replace with your content -->
               <div class="my-2 bg-gray-200 px-2 py-4 rounded-lg">
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
@@ -161,6 +161,11 @@
               </div>
               <!-- /End replace -->
             </div>
+            <div v-else>
+                <p class="text-center text-lg my-3 text-red-700">
+                  No Complaints added yet
+                </p>
+              </div>
           </div>
         </main>
       </div>

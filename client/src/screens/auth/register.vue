@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     async attemptSignUp() {
-      const response = await this.$http.post('users/', this.user);
+      const response = await this.$http.post('api/users/', this.user);
       if (response) {
         this.$toast.show({
           content: 'Your have been registered successfully, please login and continue.',
