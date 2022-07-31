@@ -1,5 +1,5 @@
 <template>
-  <nav class="mt-5 px-2 space-y-1">
+  <nav v-if="profileData" class="mt-5 px-2 space-y-1">
     <!-- Current: "bg-indigo-800 text-white", Default: "text-white hover:bg-indigo-600 hover:bg-opacity-75" -->
     <router-link :to="{ name: 'Home'}"
                  class="text-white hover:bg-indigo-600 hover:bg-opacity-75 group flex items-center px-2 py-2 text-sm font-medium rounded-md"

@@ -469,12 +469,12 @@ const VueTailwindSettings = {
   TTable: {
     classes: {
       table: 'min-w-full divide-y divide-gray-200',
-      thead: 'bg-light',
+      thead: 'bg-dark text-center',
       theadTr: '',
-      theadTh: 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
-      tbody: 'bg-white divide-y divide-gray-200',
+      theadTh: 'px-6 text-center py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+      tbody: 'bg-white text-center divide-y divide-gray-200',
       tr: '',
-      td: 'px-6 py-4 whitespace-nowrap',
+      td: 'px-6 py-4 whitespace-nowrap text-center',
       tfoot: '',
       tfootTr: '',
       tfootTd: '',

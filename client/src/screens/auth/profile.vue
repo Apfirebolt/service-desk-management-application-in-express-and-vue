@@ -59,11 +59,11 @@
               <div class="flex-shrink-0 flex items-center px-4">
                 <img
                   class="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
+                  src="@/assets/work.jpg"
                   alt="Workflow"
                 >
               </div>
-              <mobile-menu-component :profile-data="profileData" />
+              <mobile-menu-component v-if="profileData" :profile-data="profileData" />
             </div>
           </div>
 
@@ -85,7 +85,7 @@
                 alt="Workflow"
               >
             </div>
-            <desktop-sidebar-component :profile-data="profileData" />
+            <desktop-sidebar-component v-if="profileData" :profile-data="profileData" />
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@
           <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img
               class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-              src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+              src="@/assets/work.jpg"
               alt=""
             >
           </div>

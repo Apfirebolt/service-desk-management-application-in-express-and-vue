@@ -58,4 +58,12 @@ Department just have two fields - Name and Description which are self explanator
 
 ## Project Screenshots
 
-Screenshots would be added as progress is made with this application.
+Screenshots would be added as progress is made with this application. Some pages of the admin pages are displayed below
+
+![alt text](./screenshots/admin.png)
+
+Screenshot of the Profile page. User would land on this page after logging in.
+
+![alt text](./screenshots/profile.png)
+
+

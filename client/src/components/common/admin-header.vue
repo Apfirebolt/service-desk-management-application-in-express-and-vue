@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 bg-gray-100 p-2 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
+  <div v-if="profileData" class="grid grid-cols-2 bg-gray-100 p-2 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
     <div>
       <p class="my-3">
         Welcome to the admin panel, <span class="text-2xl text-red-500">{{ username }}</span>
@@ -9,7 +9,7 @@
         remove added users and change the status of the registered complaints.
       </p>
     </div>
-    <div>
+    <div class="grid grid-cols-2 md:flex md:justify-center md:items-center">
       <router-link
         :to="{ name: 'AdminUsers' }"
         class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
