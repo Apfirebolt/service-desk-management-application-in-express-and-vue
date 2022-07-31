@@ -51,6 +51,7 @@ export default {
       if (this.profileData) {
         return this.profileData.firstName + " " + this.profileData.lastName;
       }
+      return ''
     },
   },
   mounted() {

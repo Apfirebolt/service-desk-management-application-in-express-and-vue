@@ -46,6 +46,7 @@ export default {
   props: {
     department: {
       type: Object,
+      default: () => {},
       required: false,
     },
   },

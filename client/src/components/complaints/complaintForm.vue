@@ -67,6 +67,7 @@ export default {
     complaint: {
       type: Object,
       required: false,
+      default: () => {}
     },
     departments: {
       type: Array,

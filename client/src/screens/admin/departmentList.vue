@@ -19,12 +19,15 @@
       />
     </t-modal>
     <div class="max-w-7xl my-3 flex justify-between mx-auto">
-      <h1 class="text-2xl font-semibold text-gray-900">Department</h1>
-      <t-button @click="isAddDepartmentModalOpened = true"> Add Department </t-button>
+      <h1 class="text-2xl font-semibold text-gray-900">
+        Department
+      </h1>
+      <t-button @click="isAddDepartmentModalOpened = true">
+        Add Department
+      </t-button>
     </div>
   
     <div class="max-w-7xl flex justify-between mx-auto">
-    
       <t-table
         :headers="['Name', 'Description', 'Actions']"
         :data="allDepartments"

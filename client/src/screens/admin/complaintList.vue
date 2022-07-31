@@ -3,17 +3,17 @@
     <admin-header-component />
     <t-modal v-model="isAddComplaintModalOpened" header="Add Complaint">
       <complaint-form
+        :departments="allDepartments"
         @submit="addComplaint"
         @cancel="isAddComplaintModalOpened = false"
-        :departments="allDepartments"
       />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
       <complaint-form
         :complaint="selectedComplaint"
+        :departments="allDepartments"
         @updateComplaint="updateComplaint"
         @cancel="isUpdateModalOpened = false"
-        :departments="allDepartments"
       />
     </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
@@ -24,8 +24,12 @@
       />
     </t-modal>
     <div class="max-w-7xl my-3 flex justify-between mx-auto">
-      <h1 class="text-2xl font-semibold text-gray-900">Complaint</h1>
-      <t-button @click="isAddComplaintModalOpened = true"> Add Complaint </t-button>
+      <h1 class="text-2xl font-semibold text-gray-900">
+        Complaint
+      </h1>
+      <t-button @click="isAddComplaintModalOpened = true">
+        Add Complaint
+      </t-button>
     </div>
     <t-table
       :headers="['Name', 'Description', 'Actions']"
@@ -86,7 +90,6 @@ import { mapActions, mapGetters } from "vuex";
 import * as complaintTypes from "../../store/modules/complaints/complaint-types";
 import * as departmentTypes from "../../store/modules/departments/department-types";
 import ComplaintForm from "../../components/complaints/complaintForm.vue";
-import ComplaintCard from "../../components/complaints/complaintCard.vue";
 import ConfirmModal from "../../components/common/confirm-modal.vue";
 import AdminHeaderComponent from '../../components/common/admin-header.vue';
 
@@ -94,7 +97,6 @@ export default {
   name: "AdminComplaint",
   components: {
     ComplaintForm,
-    ComplaintCard,
     ConfirmModal,
     AdminHeaderComponent
   },

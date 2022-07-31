@@ -1,10 +1,10 @@
 <template>
   <div class="bg-white shadow-sm rounded-md">
     <t-modal v-model="isAddComplaintModalOpened" header="Add Complaint">
-      <complaint-form @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" :departments="allDepartments" />
+      <complaint-form :departments="allDepartments" @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
-      <complaint-form :complaint="selectedComplaint" @updateComplaint="openUpdatecomplaintModal" :departments="allDepartments" @cancel="isUpdateModalOpened = false" />
+      <complaint-form :complaint="selectedComplaint" :departments="allDepartments" @updateComplaint="updateComplaint" @cancel="isUpdateModalOpened = false" />
     </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
       <confirm-modal :message="deleteMessage" @confirm="deleteComplaint" @cancel="isConfirmModalOpened = false" />
@@ -27,7 +27,7 @@
         >
           <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true" />
 
-          <div class="relative flex-1 flex flex-col max-w-xs w-full bg-indigo-700">
+          <div class="relative flex-1 flex flex-col max-w-xs w-full bg-gray-700">
             <!--
         Close button, show/hide based on off-canvas menu state.
 
@@ -72,7 +72,7 @@
                   alt="Workflow"
                 >
               </div>
-              <mobile-menu-component />
+              <mobile-menu-component :profile-data="profileData" />
             </div>
             <div class="flex-shrink-0 flex border-t border-indigo-800 p-4">
               <a href="#" class="flex-shrink-0 group block">
@@ -98,16 +98,9 @@
       <!-- Static sidebar for desktop -->
       <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex-1 flex flex-col min-h-0 bg-indigo-700">
+        <div class="flex-1 flex flex-col min-h-0 bg-gray-700">
           <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div class="flex items-center flex-shrink-0 px-4">
-              <img
-                class="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                alt="Workflow"
-              >
-            </div>
-            <desktop-sidebar-component :profileData="profileData" />
+            <desktop-sidebar-component :profile-data="profileData" />
           </div>
         </div>
       </div>
@@ -150,9 +143,9 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               <!-- Replace with your content -->
               <div class="my-2 bg-gray-200 px-2 py-4 rounded-lg">
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
                   <div v-for="complaint in allComplaints" :key="complaint._id">
-                    <complaint-card :complaint="complaint" @deleteComplaint="openConfirmDeleteModal" @updateComplaint="openUpdatecomplaintModal" />
+                    <complaint-card :complaint="complaint" @deleteComplaint="openConfirmDeleteModal" @updateComplaint="openUpdateComplaintModal" />
                   </div>
                 </div>
               </div>
@@ -263,7 +256,7 @@ export default {
       this.deleteComplaintAction(this.selectedComplaint._id);
       this.getAllComplaints();
     },
-    openUpdatecomplaintModal(id) {
+    openUpdateComplaintModal(id) {
       this.isUpdateModalOpened = true;
       this.selectedComplaint = this.allComplaints.find((item) => item._id === id);
     },
