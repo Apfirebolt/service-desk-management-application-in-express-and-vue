@@ -227,7 +227,7 @@ export default {
       addComplaintAction: complaintTypes.CREATE_COMPLAINT_ACTION,
       updateComplaintAction: complaintTypes.UPDATE_COMPLAINT_ACTION,
       deleteComplaintAction: complaintTypes.DELETE_COMPLAINT_ACTION,
-      getAllComplaints: complaintTypes.GET_ALL_COMPLAINTS_ACTION,
+      getAllComplaints: complaintTypes.GET_ALL_USER_COMPLAINTS_ACTION,
       getAllDepartments: departmentTypes.GET_ALL_DEPARTMENTS_ACTION,
     }),
     async updateRoute() {

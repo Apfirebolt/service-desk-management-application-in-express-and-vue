@@ -68,7 +68,7 @@ const actions = {
 
   // Setting all COMPLAINTS
   [types.GET_ALL_USER_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
-    const url = "api/complaints/my-complaints";
+    const url = "api/complaints";
     interceptor
       .get(url, {
         params: urlParams,
