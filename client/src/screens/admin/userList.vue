@@ -1,6 +1,12 @@
 <template>
   <div class="w-3/4 py-3 mx-auto">
     <admin-header-component />
+    <t-modal v-model="isAddUserModalOpened" header="Add User">
+      <user-form
+        @submit="addUser"
+        @cancel="isAddUserModalOpened = false"
+      />
+    </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
       <confirm-modal
         :message="deleteMessage"
@@ -8,10 +14,9 @@
         @cancel="isConfirmModalOpened = false"
       />
     </t-modal>
-    <div class="max-w-7xl my-3 flex justify-between mx-auto">
-      <h1 class="text-2xl font-semibold text-gray-900">
-        Users
-      </h1>
+     <div class="max-w-7xl my-3 flex justify-between mx-auto">
+      <h1 class="text-2xl font-semibold text-gray-900">Users</h1>
+      <t-button @click="isAddUserModalOpened = true"> Add User </t-button>
     </div>
   
     <div class="max-w-7xl flex justify-between mx-auto">
@@ -66,6 +71,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import ConfirmModal from "../../components/common/confirm-modal.vue";
+import UserForm from "../../components/auth/userForm.vue";
 import AdminHeaderComponent from '../../components/common/admin-header.vue';
 import * as userTypes from "../../store/modules/auth/auth-types";
 
@@ -73,7 +79,8 @@ export default {
   name: "AdminUser",
   components: {
     ConfirmModal,
-    AdminHeaderComponent
+    AdminHeaderComponent,
+    UserForm
   },
   data() {
     return {
@@ -81,6 +88,7 @@ export default {
         page: 1,
         limit: 5,
       },
+      isAddUserModalOpened: false,
       isConfirmModalOpened: false,
       selectedUser: null,
       deleteMessage: "",
@@ -107,8 +115,13 @@ export default {
   methods: {
     ...mapActions({
       getAllUsers: userTypes.GET_ALL_USERS_ACTION,
-      deleteUserAction: userTypes.DELETE_USER_ACTION
+      deleteUserAction: userTypes.DELETE_USER_ACTION,
+      addAdminUser: userTypes.ADD_USER_ADMIN_ACTION
     }),
+    addUser(payload) {
+      this.addAdminUser(payload);
+      this.isAddUserModalOpened = false;
+    },
     async updateRoute() {
       try {
         await this.$router.push({ name: "AdminUser", query: this.urlParams });

@@ -24,5 +24,7 @@ export const DELETE_USER_ACTION = 'accounts/DELETE_USER_ACTION';
 
 export const UPDATE_PROFILE_SETTINGS = 'accounts/UPDATE_PROFILE_SETTINGS';
 
-export const SET_USER_COUNT = 'complaint/SET_USER_COUNT';
-export const GET_USER_COUNT = 'complaint/GET_USER_COUNT';
+export const SET_USER_COUNT = 'accounts/SET_USER_COUNT';
+export const GET_USER_COUNT = 'accounts/GET_USER_COUNT';
+
+export const ADD_USER_ADMIN_ACTION = 'accounts/ADD_USER_ADMIN_ACTION';

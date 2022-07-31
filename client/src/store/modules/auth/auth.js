@@ -155,6 +155,21 @@ const actions = {
         console.error(err);
       });
   },
+
+  // Add user - Admin only
+  [types.ADD_USER_ADMIN_ACTION]: ({ commit }, payload) => {
+    const url = `api/users/add`;
+    interceptor.post(url, payload)
+      .then((response) => {
+        interceptor.get("api/users").then((response) => {
+          commit(types.SET_ALL_USERS, response.data);
+          commit(types.SET_USER_COUNT, response.total);
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
 };
 
 export default {
