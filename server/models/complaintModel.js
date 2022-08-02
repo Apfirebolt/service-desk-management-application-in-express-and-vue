@@ -19,9 +19,10 @@ const complaintSchema = mongoose.Schema(
       ref: "User",
     },
     status: {
-      type: Boolean,
-      required: false,
-      default: true
+      type: String,
+      enum: ['Opened', 'Pending', 'Closed'],
+      default: 'Pending',
+      required : false 
     },
     device: {
       type: String,

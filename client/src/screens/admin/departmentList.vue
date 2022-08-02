@@ -23,7 +23,7 @@
       <t-button @click="isAddDepartmentModalOpened = true"> Add Department </t-button>
     </div>
 
-    <div class="max-w-7xl flex justify-between mx-auto">
+    <div v-if="allDepartments.length" class="max-w-7xl mx-auto">
       <t-table
         :headers="['Name', 'Description', 'Actions']"
         :data="allDepartments"
@@ -76,17 +76,20 @@
           </tr>
         </template>
       </t-table>
-    </div>
-    <div class="flex justify-center my-3">
-      <div class="class max-w-2xl">
-        <t-pagination
-          v-model="urlParams.page"
-          :total-items="departmentCount"
-          :per-page="urlParams.limit"
-          :limit="5"
-        />
+      <div class="flex justify-center my-3">
+        <div class="class max-w-2xl">
+          <t-pagination
+            v-model="urlParams.page"
+            :total-items="departmentCount"
+            :per-page="urlParams.limit"
+            :limit="5"
+          />
+        </div>
       </div>
     </div>
+    <p v-else class="text-center text-lg my-3 text-green-600">
+      No Complaints Available
+    </p>
   </div>
 </template>
 <script>

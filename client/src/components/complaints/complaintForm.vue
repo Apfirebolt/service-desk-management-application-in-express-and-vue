@@ -37,6 +37,26 @@
           />
         </t-input-group>
       </div>
+      <div v-if="staffUsers.length" class="grid grid-cols-2 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
+        <t-input-group label="Status Selection">
+          <t-select
+            v-model="complaintData.status"
+            placeholder="Select Status"
+            :options="statusChoices"
+            name="Status"
+          />
+        </t-input-group>
+        <t-input-group label="Managed By">
+          <t-select
+            v-model="complaintData.managedBy"
+            placeholder="Select Staff"
+            :options="staffUsers"
+            name="Device"
+            value-attribute="_id" 
+            text-attribute="firstName"
+          />
+        </t-input-group>
+      </div>
       <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
         <t-input-group label="Complaint Desription (Optional)">
           <t-textarea
@@ -73,6 +93,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    staffUsers: {
+      type: Array,
+      required: true,
+      default: () => []
     }
   },
   data() {
@@ -81,6 +106,7 @@ export default {
         description: '',
       },
       deviceChoices: ['Mobile', 'Laptop', 'Other Accessories'],
+      statusChoices: ['Pending', 'Opened', 'Closed']
     };
   },
   mounted() {

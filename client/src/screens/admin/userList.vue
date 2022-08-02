@@ -21,7 +21,7 @@
   
     <div class="max-w-7xl flex justify-between mx-auto">
       <t-table
-        :headers="['Name', 'Email', 'Actions']"
+        :headers="['Name', 'Email', 'User Type', 'Actions']"
         :data="allUsers"
         class="bg-white shadow-sm"
       >
@@ -32,6 +32,9 @@
             </td>
             <td class="p-3">
               {{ props.row.email }}
+            </td>
+            <td class="p-3">
+              {{ props.row.userType | toUpperCase }}
             </td>
             <td class="p-3">
               <button
@@ -124,7 +127,7 @@ export default {
     },
     async updateRoute() {
       try {
-        await this.$router.push({ name: "AdminUser", query: this.urlParams });
+        await this.$router.push({ name: "AdminUsers", query: this.urlParams });
       } catch (navigationError) {
         // Catch and ignore navigation errors caused through multiple params changed
       }

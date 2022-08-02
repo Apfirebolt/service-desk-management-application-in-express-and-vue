@@ -120,11 +120,19 @@ const getAllUsers = asyncHandler(async (req, res) => {
   const itemsPerPage = 5;
   const startPage = req.query.page || 1;
 
-  await User.find({})
+  let searchFilters = {}
+  // Return staff users for admin
+  if (req.query.staff) {
+    searchFilters = {
+      userType: 'staff'
+    }
+  }
+
+  await User.find(searchFilters)
     .skip(itemsPerPage * startPage - itemsPerPage)
     .limit(itemsPerPage)
     .exec(function (err, users) {
-      User.countDocuments().exec(function (err, count) {
+      User.countDocuments(searchFilters).exec(function (err, count) {
         if (err) return next(err);
         res.status(200).json({
           data: users,

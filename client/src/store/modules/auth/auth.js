@@ -129,9 +129,11 @@ const actions = {
   },
 
   // Get all users
-  [types.GET_ALL_USERS_ACTION]: ({ commit }) => {
+  [types.GET_ALL_USERS_ACTION]: ({ commit }, urlParams) => {
     const url = 'api/users';
-    interceptor.get(url)
+    interceptor.get(url, {
+      params: urlParams
+    })
       .then((response) => {
         commit(types.SET_ALL_USERS, response.data);
         commit(types.SET_USER_COUNT, response.total);

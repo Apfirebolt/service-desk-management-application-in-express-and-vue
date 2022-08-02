@@ -40,14 +40,16 @@ const getMyComplaints = asyncHandler(async (req, res) => {
 // @route   POST /api/complaints
 // @access  Private - User
 const createComplaint = asyncHandler(async (req, res) => {
-  const { title, description, department, device } = req.body
+  const { title, description, department, device, status, managedBy } = req.body
 
   const complaint = await Complaint.create({
     title,
     description,
     department,
     device,
-    createdBy: req.user._id
+    status,
+    createdBy: req.user._id,
+    managedBy,
   })
 
   if (complaint) {
@@ -74,6 +76,8 @@ const updateComplaint = asyncHandler(async (req, res) => {
     complaint.description = req.body.description || complaint.description
     complaint.device= req.body.device || complaint.device
     complaint.department = req.body.department || complaint.department
+    complaint.status = req.body.status || complaint.status
+    complaint.managedBy = req.body.managedBy || complaint.managedBy
     const updatedComplaint = await complaint.save()
 
     res.json(updatedComplaint)
