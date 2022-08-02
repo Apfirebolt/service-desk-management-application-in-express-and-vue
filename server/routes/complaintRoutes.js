@@ -15,16 +15,16 @@ router.route('/')
   .post(protect, createComplaint)
   .get(getAllComplaints)
 router
-  .route('/:id')
-  .get(protect, getComplaint)
-  .patch(protect, updateComplaint)
-  .delete(protect, deleteComplaint)
+  .route('/assigned-complaints')
+  .get(protect, getAssignedComplaints)
 router
   .route('/my-complaints')
   .get(protect, getMyComplaints)
 router
-  .route('/assigned-complaints')
-  .get(protect, getAssignedComplaints)
+  .route('/:id')
+  .get(protect, getComplaint)
+  .patch(protect, updateComplaint)
+  .delete(protect, deleteComplaint)
 
 
 export default router

@@ -9,6 +9,7 @@ const getAllComplaints = asyncHandler(async (req, res) => {
   const startPage = req.query.page || 1;
 
   await Complaint.find({})
+    .populate('managedBy', 'firstName lastName')
     .skip(itemsPerPage * startPage - itemsPerPage)
     .limit(itemsPerPage)
     .exec(function (err, complaints) {
@@ -32,6 +33,7 @@ const getAllComplaints = asyncHandler(async (req, res) => {
 // @access  Public
 const getMyComplaints = asyncHandler(async (req, res) => {
   const complaints = await Complaint.find({ createdBy: req.user._id })
+  .populate('managedBy', 'firstName lastName')
 
   res.json(complaints)
 })
@@ -64,9 +66,18 @@ const createComplaint = asyncHandler(async (req, res) => {
 // @route   PATCH /api/complaints/id
 // @access  Private - Admin only
 const updateComplaint = asyncHandler(async (req, res) => {
-  const complaint = await Complaint.findOne({ createdBy: req.user._id, _id: req.params.id })
+  const complaint = await Complaint.findOne({ _id: req.params.id })
 
-  if ((complaint.createdBy.toString() !== req.user._id.toString()) && (req.user.isAdmin === false)) {
+  if (complaint && complaint.managedBy) {
+    if ((complaint.managedBy.toString() !== req.user._id.toString()) && (complaint.createdBy.toString() !== req.user._id.toString())) {
+      res.status(403)
+      throw new Error('This complaint is not assigned to')
+    }
+  }
+
+  if (complaint && (complaint.createdBy.toString() !== req.user._id.toString() 
+                && (complaint.managedBy.toString() !== req.user._id.toString())) 
+                && (req.user.isAdmin === false)) {
     res.status(403)
     throw new Error('Only complaint owner or admin can edit complaint')
   }
@@ -132,14 +143,16 @@ const getComplaint = asyncHandler(async (req, res) => {
 // @route   POST /api/complaints/assigned-complaints
 // @access  Private - Admin and staff users
 const getAssignedComplaints = asyncHandler(async (req, res) => {
+
   const itemsPerPage = 5;
   const startPage = req.query.page || 1;
 
-  await Complaint.find({})
+  await Complaint.find({ managedBy: req.user._id })
+    .populate('managedBy', 'firstName lastName')
     .skip(itemsPerPage * startPage - itemsPerPage)
     .limit(itemsPerPage)
     .exec(function (err, complaints) {
-      Complaint.countDocuments().exec(function (err, count) {
+      Complaint.countDocuments({ managedBy: req.user._id }).exec(function (err, count) {
         if (err) return next(err);
         res.status(200).json({
           data: complaints,

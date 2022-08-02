@@ -2,7 +2,7 @@
   <div class="w-3/4 py-3 mx-auto">
     <staff-header-component />
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
-      <complaint-form
+      <complaint-status-form
         :complaint="selectedComplaint"
         :departments="allDepartments"
         :staffUsers="staffUsers"
@@ -15,7 +15,7 @@
     </div>
     <div v-if="allComplaints.length">
       <t-table
-        :headers="['Name', 'Description', 'Actions']"
+        :headers="['Name', 'Description', 'Status', 'Actions']"
         :data="allComplaints"
         class="bg-white shadow-sm"
       >
@@ -26,6 +26,9 @@
             </td>
             <td class="p-3">
               {{ props.row.description }}
+            </td>
+            <td class="p-3">
+              {{ props.row.status }}
             </td>
             <td class="p-3">
               <button
@@ -71,14 +74,14 @@ import { mapActions, mapGetters } from "vuex";
 import * as complaintTypes from "../../store/modules/complaints/complaint-types";
 import * as departmentTypes from "../../store/modules/departments/department-types";
 import * as authTypes from "../../store/modules/auth/auth-types";
-import ComplaintForm from "../../components/complaints/complaintForm.vue";
+import ComplaintStatusForm from "../../components/complaints/complaintStatusForm.vue";
 import ConfirmModal from "../../components/common/confirm-modal.vue";
 import StaffHeaderComponent from "../../components/common/staff-header.vue";
 
 export default {
   name: "StaffComplaint",
   components: {
-    ComplaintForm,
+    ComplaintStatusForm,
     ConfirmModal,
     StaffHeaderComponent,
   },

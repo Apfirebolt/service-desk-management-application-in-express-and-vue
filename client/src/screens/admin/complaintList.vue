@@ -31,7 +31,7 @@
     </div>
     <div v-if="allComplaints.length">
       <t-table
-        :headers="['Name', 'Description', 'Actions']"
+        :headers="['Name', 'Description', 'Managed By', 'Actions']"
         :data="allComplaints"
         class="bg-white shadow-sm"
       >
@@ -42,6 +42,9 @@
             </td>
             <td class="p-3">
               {{ props.row.description }}
+            </td>
+            <td class="p-3">
+              {{ props.row.managedBy ? props.row.managedBy.firstName + ' ' +  props.row.managedBy.lastName : 'None'}}
             </td>
             <td class="p-3">
               <button
