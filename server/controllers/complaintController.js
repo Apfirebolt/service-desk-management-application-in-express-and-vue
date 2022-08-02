@@ -128,11 +128,37 @@ const getComplaint = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    List of all assigned complaints
+// @route   POST /api/complaints/assigned-complaints
+// @access  Private - Admin and staff users
+const getAssignedComplaints = asyncHandler(async (req, res) => {
+  const itemsPerPage = 5;
+  const startPage = req.query.page || 1;
+
+  await Complaint.find({})
+    .skip(itemsPerPage * startPage - itemsPerPage)
+    .limit(itemsPerPage)
+    .exec(function (err, complaints) {
+      Complaint.countDocuments().exec(function (err, count) {
+        if (err) return next(err);
+        res.status(200).json({
+          data: complaints,
+          total: count,
+          success: true,
+          itemsPerPage,
+          startPage,
+          lastPage: Math.ceil(count / itemsPerPage),
+        });
+      });
+    });
+})
+
 export {
   getAllComplaints,
   createComplaint,
   updateComplaint,
   deleteComplaint,
   getComplaint,
-  getMyComplaints
+  getMyComplaints,
+  getAssignedComplaints
 }

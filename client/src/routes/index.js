@@ -4,6 +4,7 @@ import { store } from '../store/store';
 import DashboardLayout from '../layouts/dashboard';
 import EmptyLayout from '../layouts/empty.vue';
 import AdminLayout from '../layouts/admin.vue';
+import StaffLayout from '../layouts/staff.vue';
 import * as authTypes from '../store/modules/auth/auth-types';
 
 Vue.use(VueRouter);
@@ -54,6 +55,20 @@ const routes = [
         path: 'users',
         name: 'AdminUsers',
         component: () => import('../screens/admin/userList.vue'),
+      },
+    ],
+  },
+  {
+    path: '/staff',
+    component: StaffLayout,
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: '',
+        name: 'StaffComplaints',
+        component: () => import('../screens/staff/assignedComplaints.vue'),
       },
     ],
   },

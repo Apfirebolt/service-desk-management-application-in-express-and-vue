@@ -22,7 +22,7 @@
       <h1 class="text-2xl font-semibold text-gray-900">Department</h1>
       <t-button @click="isAddDepartmentModalOpened = true"> Add Department </t-button>
     </div>
-
+  
     <div v-if="allDepartments.length" class="max-w-7xl mx-auto">
       <t-table
         :headers="['Name', 'Description', 'Actions']"

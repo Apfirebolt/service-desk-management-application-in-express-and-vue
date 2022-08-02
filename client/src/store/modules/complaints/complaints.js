@@ -50,14 +50,13 @@ const actions = {
   },
 
   // Setting all COMPLAINTS
-  [types.GET_ALL_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
+  [types.GET_ALL_USER_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
     const url = "api/complaints";
     interceptor
       .get(url, {
         params: urlParams,
       })
       .then((response) => {
-        console.log('All complaints response ', response)
         commit(types.SET_ALL_COMPLAINTS, response.data);
         commit(types.SET_COMPLAINT_COUNT, response.total);
       })
@@ -66,9 +65,8 @@ const actions = {
       });
   },
 
-  // Setting all COMPLAINTS
-  [types.GET_ALL_USER_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
-    const url = "api/complaints";
+  [types.GET_ALL_STAFF_COMPLAINTS_ACTION]: ({ commit }, urlParams) => {
+    const url = "api/complaints/assigned-complaints";
     interceptor
       .get(url, {
         params: urlParams,
