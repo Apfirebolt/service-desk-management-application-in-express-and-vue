@@ -3,7 +3,7 @@
     class="
       flex flex-col
       justify-center
-      bg-green-600
+      bg-red-600
       overflow-hidden
       min-h-screen
     "

@@ -6,6 +6,12 @@
     <p class="text-center">
       {{ complaint.description }}
     </p>
+    <p class="text-center text-lg my-4">
+      Status - <span class="bg-green-300 p-2">{{ complaint.status }}</span>
+    </p>
+    <p v-if="complaint.managedBy" class="text-center text-lg my-4">
+      Managed By - <span class="bg-purple-300 p-2">{{ complaint.managedBy.firstName + ' ' + complaint.managedBy.lastName }}</span>
+    </p>
     <div class="flex justify-center items-center my-5">
       <t-button type="button" class="mx-2" variant="error" @click="deleteComplaintUtil">
         Delete
