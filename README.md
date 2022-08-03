@@ -53,6 +53,7 @@ Department just have two fields - Name and Description which are self explanator
 
 - Complaint System for Organization and people working within the organization.
 - Has an Admin Panel
+- Has a Staff Panel for users who are selected as staff by the admin user.
 - Users can add complaints and view status.
 - Complaints are segregated by department, CRUD on departments can be performed by admin.
 
@@ -65,5 +66,9 @@ Screenshots would be added as progress is made with this application. Some pages
 Screenshot of the Profile page. User would land on this page after logging in.
 
 ![alt text](./screenshots/profile.png)
+
+## Project Status
+
+The most important features of the project is complete and ready to use. There is a possibility of adding minor features like adding comments for resolved complaints in the future. The project approximately took one week time for completion, I was working on other projects including my organisation projects as well meanwhile.
 
 
