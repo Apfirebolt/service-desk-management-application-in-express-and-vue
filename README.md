@@ -57,6 +57,10 @@ Department just have two fields - Name and Description which are self explanator
 - Users can add complaints and view status.
 - Complaints are segregated by department, CRUD on departments can be performed by admin.
 
+## Project Updates 
+
+- 19/10/22 - Added SEO Dynamic Meta tags using Vue-Meta package.
+
 ## Project Screenshots
 
 Screenshots would be added as progress is made with this application. Some pages of the admin pages are displayed below

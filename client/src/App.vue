@@ -21,18 +21,10 @@ export default {
   htmlAttrs: {
     lang: "en-US",
   },
-  metaInfo() {
-    return {
-      title: "test meta data with vue",
-      meta: [
-        {
-          vmid: "description",
-          name: "description",
-          content:
-            "hello world, this is an example of adding a description with vueMeta"
-        }
-      ]
-    };
+  metaInfo: {
+    title: 'Default App Title',
+    titleTemplate: '%s | vue-meta Example App',
+    description: 'Default App Description'
   },
   computed: {
     ...mapGetters({

@@ -151,7 +151,6 @@ export default {
     },
   },
   mounted() {
-    console.log('Inside mounteds')
     if (this.profileData.isAdmin) {
       this.urlParams.staff = true
       this.getStaffUsers(this.urlParams)

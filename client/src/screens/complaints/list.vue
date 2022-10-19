@@ -1,13 +1,26 @@
 <template>
   <div class="bg-white shadow-sm rounded-md">
     <t-modal v-model="isAddComplaintModalOpened" header="Add Complaint">
-      <complaint-form :departments="allDepartments" @submit="addComplaint" @cancel="isAddComplaintModalOpened = false" />
+      <complaint-form
+        :departments="allDepartments"
+        @submit="addComplaint"
+        @cancel="isAddComplaintModalOpened = false"
+      />
     </t-modal>
     <t-modal v-model="isUpdateModalOpened" header="Update Complaint">
-      <complaint-form :complaint="selectedComplaint" :departments="allDepartments" @updateComplaint="updateComplaint" @cancel="isUpdateModalOpened = false" />
+      <complaint-form
+        :complaint="selectedComplaint"
+        :departments="allDepartments"
+        @updateComplaint="updateComplaint"
+        @cancel="isUpdateModalOpened = false"
+      />
     </t-modal>
     <t-modal v-model="isConfirmModalOpened" header="Confirm Delete">
-      <confirm-modal :message="deleteMessage" @confirm="deleteComplaint" @cancel="isConfirmModalOpened = false" />
+      <confirm-modal
+        :message="deleteMessage"
+        @confirm="deleteComplaint"
+        @cancel="isConfirmModalOpened = false"
+      />
     </t-modal>
     <div>
       <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
@@ -70,7 +83,7 @@
                   class="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
                   alt="Workflow"
-                >
+                />
               </div>
               <mobile-menu-component :profile-data="profileData" />
             </div>
@@ -82,7 +95,7 @@
                       class="inline-block h-10 w-10 rounded-full"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""
-                    >
+                    />
                   </div>
                 </div>
               </a>
@@ -133,19 +146,19 @@
         <main class="flex-1">
           <div class="py-6">
             <div class="max-w-7xl flex justify-between mx-auto px-4 sm:px-6 md:px-8">
-              <h1 class="text-2xl font-semibold text-gray-900">
-                Complaint
-              </h1>
-              <t-button @click="isAddComplaintModalOpened = true">
-                Add Complaint
-              </t-button>
+              <h1 class="text-2xl font-semibold text-gray-900">Complaint</h1>
+              <t-button @click="isAddComplaintModalOpened = true"> Add Complaint </t-button>
             </div>
             <div v-if="allComplaints.length" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               <!-- Replace with your content -->
               <div class="my-2 bg-gray-200 px-2 py-4 rounded-lg">
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
                   <div v-for="complaint in allComplaints" :key="complaint._id">
-                    <complaint-card :complaint="complaint" @deleteComplaint="openConfirmDeleteModal" @updateComplaint="openUpdateComplaintModal" />
+                    <complaint-card
+                      :complaint="complaint"
+                      @deleteComplaint="openConfirmDeleteModal"
+                      @updateComplaint="openUpdateComplaintModal"
+                    />
                   </div>
                 </div>
               </div>
@@ -159,13 +172,13 @@
                   />
                 </div>
               </div>
+              {{ allComplaints[0].title }}
               <!-- /End replace -->
             </div>
+
             <div v-else>
-                <p class="text-center text-lg my-3 text-red-700">
-                  No Complaints added yet
-                </p>
-              </div>
+              <p class="text-center text-lg my-3 text-red-700">No Complaints added yet</p>
+            </div>
           </div>
         </main>
       </div>
@@ -173,24 +186,37 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import * as complaintTypes from '../../store/modules/complaints/complaint-types';
-import * as authTypes from '../../store/modules/auth/auth-types';
+import { mapActions, mapGetters } from "vuex";
+import * as complaintTypes from "../../store/modules/complaints/complaint-types";
+import * as authTypes from "../../store/modules/auth/auth-types";
 import * as departmentTypes from "../../store/modules/departments/department-types";
-import ComplaintForm from '../../components/complaints/complaintForm.vue';
-import ComplaintCard from '../../components/complaints/complaintCard.vue';
-import DesktopSidebarComponent from '../../components/common/sidebar.vue';
-import MobileMenuComponent from '../../components/common/mobile-menu.vue';
-import ConfirmModal from '../../components/common/confirm-modal.vue';
+import ComplaintForm from "../../components/complaints/complaintForm.vue";
+import ComplaintCard from "../../components/complaints/complaintCard.vue";
+import DesktopSidebarComponent from "../../components/common/sidebar.vue";
+import MobileMenuComponent from "../../components/common/mobile-menu.vue";
+import ConfirmModal from "../../components/common/confirm-modal.vue";
 
 export default {
-  name: 'ComplaintHome',
+  name: "ComplaintHome",
   components: {
     ComplaintForm,
     DesktopSidebarComponent,
     MobileMenuComponent,
     ComplaintCard,
     ConfirmModal,
+  },
+  metaInfo() {
+    let data = this.allComplaints && this.allComplaints[0];
+    return {
+      title: data ? data.title : "some placeholder title",
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content: data ? data.description : "some random description",
+        },
+      ],
+    };
   },
   data() {
     return {
@@ -199,7 +225,7 @@ export default {
       isConfirmModalOpened: false,
       isUpdateModalOpened: false,
       selectedComplaint: null,
-      deleteMessage: '',
+      deleteMessage: "",
       urlParams: {
         page: 1,
         limit: 5,
@@ -219,7 +245,7 @@ export default {
       this.getAllComplaints(this.urlParams);
     },
     urlParams: {
-      handler: 'updateRoute',
+      handler: "updateRoute",
       deep: true,
     },
   },
@@ -237,7 +263,7 @@ export default {
     }),
     async updateRoute() {
       try {
-        await this.$router.push({ name: 'ComplaintsHome', query: this.urlParams });
+        await this.$router.push({ name: "ComplaintsHome", query: this.urlParams });
       } catch (navigationError) {
         // Catch and ignore navigation errors caused through multiple params changed
       }
