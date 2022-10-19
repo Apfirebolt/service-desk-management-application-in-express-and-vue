@@ -6,8 +6,10 @@ import EmptyLayout from '../layouts/empty.vue';
 import AdminLayout from '../layouts/admin.vue';
 import StaffLayout from '../layouts/staff.vue';
 import * as authTypes from '../store/modules/auth/auth-types';
+import VueMeta from 'vue-meta'
 
 Vue.use(VueRouter);
+Vue.use(VueMeta)
 
 const routes = [
   {

@@ -7,16 +7,32 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import Loading from './components/common/loading.vue';
-import DefaultToast from './components/toasts/default-toast.vue';
-import * as authTypes from './store/modules/auth/auth-types';
+import { mapActions, mapGetters } from "vuex";
+import Loading from "./components/common/loading.vue";
+import DefaultToast from "./components/toasts/default-toast.vue";
+import * as authTypes from "./store/modules/auth/auth-types";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     DefaultToast,
     Loading,
+  },
+  htmlAttrs: {
+    lang: "en-US",
+  },
+  metaInfo() {
+    return {
+      title: "test meta data with vue",
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content:
+            "hello world, this is an example of adding a description with vueMeta"
+        }
+      ]
+    };
   },
   computed: {
     ...mapGetters({
