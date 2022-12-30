@@ -60,6 +60,7 @@ Department just have two fields - Name and Description which are self explanator
 ## Project Updates 
 
 - 19/10/22 - Added SEO Dynamic Meta tags using Vue-Meta package.
+- 30/12/22 - Added Nginx conf file after testing. Build would be served with Nginx as reverse proxy
 
 ## Project Screenshots
 
