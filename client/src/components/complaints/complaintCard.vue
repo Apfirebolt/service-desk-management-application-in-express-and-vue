@@ -3,9 +3,9 @@
     <div class="rounded overflow-hidden shadow-lg">
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">{{ complaint.title }}</div>
-        <p class="text-gray-700 text-base">
-          {{ complaint.description }}
-        </p>
+        <div v-html="complaint.description">
+      
+        </div>
       </div>
       <div class="px-6 pt-4 pb-2">
         <span

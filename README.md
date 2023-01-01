@@ -61,6 +61,7 @@ Department just have two fields - Name and Description which are self explanator
 
 - 19/10/22 - Added SEO Dynamic Meta tags using Vue-Meta package.
 - 30/12/22 - Added Nginx conf file after testing. Build would be served with Nginx as reverse proxy
+- 1/1/23 - Replaced normal text area in complaint description with vue-editor, complaint description would now be displayed as HTML.
 
 ## Project Screenshots
 

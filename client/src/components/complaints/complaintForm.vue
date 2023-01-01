@@ -57,16 +57,7 @@
           />
         </t-input-group>
       </div>
-      <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-8 sm:my-4">
-        <t-input-group label="Complaint Desription (Optional)">
-          <t-textarea
-            v-model="complaintData.description"
-            rows="10"
-            cols="60"
-            placeholder="Describe your complaint in some detail"
-          />
-        </t-input-group>
-      </div>
+      <vue-editor v-model="complaintData.description" />
 
       <div class="flex justify-between mt-6">
         <t-button type="button" variant="error" @click="$emit('cancel')">
@@ -81,8 +72,13 @@
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
   name: 'AddUpdateComplaintForm',
+  components: {
+    VueEditor
+  },
   props: {
     complaint: {
       type: Object,
@@ -96,7 +92,7 @@ export default {
     },
     staffUsers: {
       type: Array,
-      required: true,
+      required: false,
       default: () => []
     }
   },
