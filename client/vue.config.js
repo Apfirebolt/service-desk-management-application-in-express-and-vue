@@ -8,7 +8,7 @@ module.exports = {
       title: 'Service Desk Management',
     },
   },
-  publicPath: '',
+  publicPath: '/',
   outputDir: 'build',
   devServer: {
     disableHostCheck: true,
