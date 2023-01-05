@@ -63,6 +63,10 @@ Department just have two fields - Name and Description which are self explanator
 - 30/12/22 - Added Nginx conf file after testing. Build would be served with Nginx as reverse proxy
 - 1/1/23 - Replaced normal text area in complaint description with vue-editor, complaint description would now be displayed as HTML.
 
+## Deployment
+
+The project is planned to be deployed using Nginx and reverse proxy. Frontend build would be served on port 80 by Nginx. We'd have our back-end API running on port 5000. We'd configure Nginx to route all the traffic that begins with '/api' to port 5000 where we have our API running. The configuration file for Nginx which would achieve this is included in the repo.
+
 ## Project Screenshots
 
 Screenshots would be added as progress is made with this application. Some pages of the admin pages are displayed below
