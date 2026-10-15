@@ -1,6 +1,13 @@
-import mongoose from 'mongoose'
+import mongoose, { Document, Schema } from 'mongoose';
 
-const departmentSchema = mongoose.Schema(
+export interface IDepartment extends Document {
+  name: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const departmentSchema = new Schema<IDepartment>(
   {
     name: {
       type: String,
@@ -14,8 +21,8 @@ const departmentSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const Department = mongoose.model('Department', departmentSchema)
+const Department = mongoose.model<IDepartment>('Department', departmentSchema);
 
-export default Department
+export default Department;

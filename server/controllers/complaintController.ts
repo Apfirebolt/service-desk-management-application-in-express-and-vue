@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import Complaint from '../models/complaintModel.js';
+import Complaint from '../models/complaint.ts';
 
 interface AuthRequest extends Request {
   user?: {

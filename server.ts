@@ -3,12 +3,14 @@ import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import history from 'connect-history-api-fallback';
-import { notFound, errorHandler } from './server/middleware/errorMiddleware.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { notFound, errorHandler } from './server/middleware/errorMiddleware.ts';
 import connectDB from './server/config/db.js';
 
-import userRoutes from './server/routes/authRoutes.js';
-import complaintRoutes from './server/routes/complaintRoutes.js';
-import departmentRoutes from './server/routes/departmentRoutes.js';
+import userRoutes from './server/routes/authRoutes.ts';
+import complaintRoutes from './server/routes/complaintRoutes.ts';
+import departmentRoutes from './server/routes/departmentRoutes.ts';
 
 dotenv.config();
 
@@ -21,6 +23,41 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json());
+
+// --- Swagger Configuration ---
+const swaggerOptions: swaggerJsdoc.Options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Service Desk Management API',
+      version: '1.0.0',
+      description: 'API documentation for the MEVN Service Desk Management application',
+    },
+    servers: [
+      {
+        url: `http://localhost:${process.env.PORT || 5000}`,
+        description: 'Development Server',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+  },
+  // Automatically scan your route files containing JSDoc comments
+  apis: ['./server/routes/*.ts'],
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+// Mount Swagger UI route
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// -----------------------------
 
 const __dirname = path.resolve();
 
@@ -56,4 +93,5 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  console.log(`Swagger Docs available at http://localhost:${PORT}/api/docs`);
 });

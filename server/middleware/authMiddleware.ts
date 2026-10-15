@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
-import User from '../models/userModel.js';
+import User from '../models/user.ts';
 
 // Augment Express Request interface globally so req.user is recognized project-wide
 declare global {
