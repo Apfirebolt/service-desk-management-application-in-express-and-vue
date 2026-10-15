@@ -1,6 +1,18 @@
-import mongoose from 'mongoose'
+import mongoose, { Document, Schema } from 'mongoose';
 
-const complaintSchema = mongoose.Schema(
+export interface IComplaint extends Document {
+  title: string;
+  description: string;
+  department?: mongoose.Types.ObjectId;
+  createdBy?: mongoose.Types.ObjectId;
+  status: 'Opened' | 'Pending' | 'Closed';
+  device: 'Mobile' | 'Laptop' | 'Other Accessories';
+  managedBy?: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const complaintSchema = new Schema<IComplaint>(
   {
     title: {
       type: String,
@@ -22,12 +34,12 @@ const complaintSchema = mongoose.Schema(
       type: String,
       enum: ['Opened', 'Pending', 'Closed'],
       default: 'Pending',
-      required : false 
+      required: false,
     },
     device: {
       type: String,
       enum: ['Mobile', 'Laptop', 'Other Accessories'],
-      required : true 
+      required: true,
     },
     managedBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -38,8 +50,8 @@ const complaintSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const Complaint = mongoose.model('Complaint', complaintSchema)
+const Complaint = mongoose.model<IComplaint>('Complaint', complaintSchema);
 
-export default Complaint
+export default Complaint;
