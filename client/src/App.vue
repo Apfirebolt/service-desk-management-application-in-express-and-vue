@@ -1,40 +1,31 @@
+<script setup lang="ts">
+import { NConfigProvider, NMessageProvider, NButton, NCard, NSpace } from 'naive-ui';
+import { darkTheme } from 'naive-ui';
+import { ref } from 'vue';
+
+const isDark = ref(false);
+</script>
+
 <template>
-  <div id="app" class="bg-blue-50">
-    <loading />
-    <default-toast />
-    <router-view />
-  </div>
+  <n-config-provider :theme="isDark ? darkTheme : null">
+    <n-message-provider>
+      <n-card title="Naive UI + TypeScript Setup" style="max-width: 600px; margin: 50px auto;">
+        <n-space vertical>
+          <p>Your Vue 3 + TypeScript project is successfully configured with Naive UI!</p>
+          <n-space>
+            <n-button type="primary" @click="isDark = !isDark">
+              Toggle {{ isDark ? 'Light' : 'Dark' }} Theme
+            </n-button>
+          </n-space>
+        </n-space>
+      </n-card>
+    </n-message-provider>
+  </n-config-provider>
 </template>
 
-<script>
-import { mapActions, mapGetters } from "vuex";
-import Loading from "./components/common/loading.vue";
-import DefaultToast from "./components/toasts/default-toast.vue";
-import * as authTypes from "./store/modules/auth/auth-types";
-
-export default {
-  name: "App",
-  components: {
-    DefaultToast,
-    Loading,
-  },
-  htmlAttrs: {
-    lang: "en-US",
-  },
-  metaInfo: {
-    title: 'Default App Title',
-    titleTemplate: '%s | vue-meta Example App',
-    description: 'Default App Description'
-  },
-  computed: {
-    ...mapGetters({
-      profileData: authTypes.GET_PROFILE_DATA,
-    }),
-  },
-  methods: {
-    ...mapActions({
-      getProfileData: authTypes.GET_PROFILE_DATA_ACTION,
-    }),
-  },
-};
-</script>
+<style>
+body {
+  margin: 0;
+  font-family: v-sans, v-mono, sans-serif;
+}
+</style>
