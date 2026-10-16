@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { NLayout, NLayoutSider, NLayoutHeader, NLayoutContent, NMenu, NButton, NSpace } from 'naive-ui';
-import { h, Component } from 'vue';
 import { RouterLink } from 'vue-router';
-import { HomeOutline, PersonOutline, SettingsOutline } from '@vicons/ionicons5';
-
-const renderIcon = (icon: Component) => () => h(NIcon, null, { default: () => h(icon) });
 
 const menuOptions = [
   {

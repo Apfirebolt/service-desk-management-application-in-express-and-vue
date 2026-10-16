@@ -16,7 +16,7 @@ import {
   SettingsOutline, 
   LogOutOutline, 
   MoonOutline, 
-  SunOutline 
+  SunnyOutline 
 } from '@vicons/ionicons5';
 
 const router = useRouter();
@@ -85,7 +85,7 @@ const handleUserMenuSelect = (key: string) => {
         <!-- Theme Toggle Button -->
         <n-button quaternary circle @click="emit('toggle-theme')">
           <template #icon>
-            <component :is="isDark ? SunOutline : MoonOutline" />
+            <component :is="isDark ? SunnyOutline : MoonOutline" />
           </template>
         </n-button>
 

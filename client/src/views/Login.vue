@@ -8,10 +8,9 @@ import {
   NButton, 
   NCheckbox, 
   NSpace, 
-  useMessage,
-  FormInst,
-  FormRules 
+  useMessage 
 } from 'naive-ui';
+import type { FormInst, FormRules } from 'naive-ui';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -42,7 +41,6 @@ const handleLogin = (e: MouseEvent) => {
   formRef.value?.validate((errors) => {
     if (!errors) {
       loading.value = true;
-      // Simulate API login request
       setTimeout(() => {
         loading.value = false;
         message.success('Login successful!');
