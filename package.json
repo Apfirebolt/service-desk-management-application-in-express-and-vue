@@ -12,7 +12,7 @@
     "start": "node dist/server.js",
     "server": "tsx server.ts",
     "dev": "concurrently -n 'server,client' -c 'red,green' \"nodemon\" \"npm run client\"",
-    "client": "cd client && npm run serve"
+    "client": "cd client && npm run dev"
   },
   "repository": {
     "type": "git",
